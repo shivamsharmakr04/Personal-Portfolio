@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shivam | Full Stack Developer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    <div class="grid-overlay"></div>
+
+    <nav id="navbar">
+        <div class="logo"></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose"><i class="fas fa-times"></i></button>
+        <ul class="mobile-menu-links">
+            <li><a href="#home" class="mobile-link">Home</a></li>
+            <li><a href="#about" class="mobile-link">About</a></li>
+            <li><a href="#skills" class="mobile-link">Skills</a></li>
+            <li><a href="#projects" class="mobile-link">Projects</a></li>
+            <li><a href="#experience" class="mobile-link">Experience</a></li>
+            <li><a href="#contact" class="mobile-link">Contact</a></li>
+        </ul>
+    </div>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge"><span class="pulse"></span>Available for freelance work</div>
+                <h1>Building Digital <span>Experiences</span> That Matter</h1>
+                <p class="hero-description">Full Stack Developer specializing in building exceptional digital
+                    experiences. I craft scalable web applications with modern technologies and AI integration.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> View Projects</a>
+                    <a href="Shivam Kumar Resume.pdf" class="btn btn-secondary" download><i class="fas fa-file-pdf"></i>
+                        Resume</a>
+                    <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                        <span style="margin-left: 1rem; color: var(--gray); font-size: 0.85rem;">developer.js</span>
+                    </div>
+                    <div class="code-content">
+                        <div class="code-line"><span class="line-num">1</span><span><span
+                                    class="code-keyword">const</span> <span class="code-variable">developer</span> =
+                                {</span></div>
+                        <div class="code-line"><span class="line-num">2</span><span>&nbsp;&nbsp;<span
+                                    class="code-variable">name</span>: <span class="code-string">"Shivam
+                                    Kumar"</span>,</span></div>
+                        <div class="code-line"><span class="line-num">3</span><span>&nbsp;&nbsp;<span
+                                    class="code-variable">role</span>: <span class="code-string">"Full Stack
+                                    Developer"</span>,</span></div>
+                        <div class="code-line"><span class="line-num">4</span><span>&nbsp;&nbsp;<span
+                                    class="code-variable">skills</span>: [<span class="code-string">"React"</span>,
+                                <span class="code-string">"Node"</span>, <span
+                                    class="code-string">"Python"</span>],</span></div>
+                        <div class="code-line"><span class="line-num">5</span><span>&nbsp;&nbsp;<span
+                                    class="code-variable">passion</span>: <span class="code-string">"Building the
+                                    future"</span>,</span></div>
+                        <div class="code-line"><span class="line-num">6</span><span>&nbsp;&nbsp;<span
+                                    class="code-function">createMagic</span>: () => <span class="code-string">"Let's
+                                    build something amazing"</span></span></div>
+                        <div class="code-line"><span class="line-num">7</span><span>};</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number" data-target="10">0</div>
+            <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="10">0</div>
+            <div class="stat-label">Happy Clients</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="1">0</div>
+            <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-target="50">0</div>
+            <div class="stat-label">Code Commits</div>
+        </div>
+    </div>
+
+    <section id="about" class="animate-on-scroll">
+        <div class="section-header">
+            <span class="section-tag">About Me</span>
+            <h2 class="section-title">Passionate <span>Developer</span> & Problem Solver</h2>
+            <p class="section-desc">Transforming complex problems into elegant, efficient solutions</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-image">
+                <div class="about-image-wrapper">
+                    <img src="Profile.jpeg" alt="Shivam - Full Stack Developer">
+                </div>
+            </div>
+            <div class="about-text">
+                <h3>Crafting Digital Excellence</h3>
+                <p>I am a passionate Full Stack Developer with expertise in modern web technologies and AI/ML
+                    integration. With over 1+ years of experience, I specialize in building scalable, user-centric
+                    applications that solve real-world problems.</p>
+                <p>My journey began with a curiosity for how things work on the web, which evolved into a deep passion
+                    for creating seamless digital experiences. I believe in writing clean, maintainable code and staying
+                    ahead of technology trends.</p>
+                <p>When I am not coding, you will find me exploring new technologies, contributing to open-source
+                    projects, or sharing knowledge with the developer community.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">React.js</span><span class="tech-tag">Node.js</span><span
+                        class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Python</span><span class="tech-tag">Express.js</span><span
+                        class="tech-tag">MongoDB</span>
+                    <span class="tech-tag">AI/ML</span><span class="tech-tag">TypeScript</span><span
+                        class="tech-tag">Next.js</span>
+                    <span class="tech-tag">PostgreSQL</span><span class="tech-tag">Docker</span><span
+                        class="tech-tag">AWS</span>
+                </div>
+                <div style="margin-top: 2.5rem;">
+                    <a href="Shivam Kumar Resume.pdf" class="btn btn-primary" download><i class="fas fa-download"></i>
+                        Download Resume</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="animate-on-scroll">
+        <div class="section-header">
+            <span class="section-tag">My Expertise</span>
+            <h2 class="section-title">Technical <span>Skills</span></h2>
+            <p class="section-desc">Technologies I work with to bring ideas to life</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fab fa-react"></i></div>
+                <h3>Frontend Development</h3>
+                <p>Building responsive, interactive UIs with React.js, Next.js, and modern CSS frameworks.</p>
+                <div class="skill-progress">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>React.js</span><span>95%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="--progress: 95%"></div>
+                    </div>
+                </div>
+                <div class="skill-progress">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>JavaScript/TypeScript</span><span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="--progress: 90%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fab fa-node-js"></i></div>
+                <h3>Backend Development</h3>
+                <p>Creating robust APIs and server-side applications with Node.js, Express, and Python.</p>
+                <div class="skill-progress">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>Node.js &
+                            Express</span><span>92%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="--progress: 92%"></div>
+                    </div>
+                </div>
+                <div class="skill-progress">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Python</span><span>85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="--progress: 85%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-database"></i></div>
+                <h3>Database & Cloud</h3>
+                <p>Designing efficient database schemas and deploying scalable cloud infrastructure.</p>
+                <div class="skill-progress">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>MongoDB &
+                            PostgreSQL</span><span>88%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="--progress: 88%"></div>
+                    </div>
+                </div>
+                <div class="skill-progress">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>AWS &
+                            Docker</span><span>80%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="--progress: 80%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                <h3>AI & Machine Learning</h3>
+                <p>Implementing intelligent solutions using Python ML libraries and AI APIs.</p>
+                <div class="skill-progress">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>TensorFlow
+                            & PyTorch</span><span>75%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="--progress: 75%"></div>
+                    </div>
+                </div>
+                <div class="skill-progress">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>OpenAI &
+                            LLMs</span><span>82%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="--progress: 82%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="animate-on-scroll">
+        <div class="section-header">
+            <span class="section-tag">Portfolio</span>
+            <h2 class="section-title">Featured <span>Projects</span></h2>
+            <p class="section-desc">Some of my recent work that showcases my skills</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop"
+                        alt="Job Portal">
+                    <div class="project-overlay">
+                        <div class="project-links"><a href="https://github.com/himanshu9771/job-listing-app"
+                                class="project-link" title="View Code"><i class="fab fa-github"></i></a><a href="#"
+                                class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">Full Stack</span>
+                    <h3>Job Portal Platform</h3>
+                    <p>A comprehensive job portal with AI-powered resume matching, real-time notifications, and advanced
+                        filtering for recruiters and candidates.</p>
+                    <div class="project-tech">
+                        <span>React.js</span><span>Node.js</span><span>MongoDB</span><span>Express</span><span>Socket.io</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop"
+                        alt="Finance Dashboard">
+                    <div class="project-overlay">
+                        <div class="project-links"><a href="https://github.com/himanshu9771/finance-Dashboard"
+                                class="project-link" title="View Code"><i class="fab fa-github"></i></a><a href="#"
+                                class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">Dashboard</span>
+                    <h3>Finance Dashboard</h3>
+                    <p>Real-time financial analytics dashboard with interactive charts, portfolio tracking, and
+                        AI-driven investment insights and predictions.</p>
+                    <div class="project-tech">
+                        <span>React.js</span><span>D3.js</span><span>Node.js</span><span>PostgreSQL</span><span>Python</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=500&fit=crop"
+                        alt="Flight Booking">
+                    <div class="project-overlay">
+                        <div class="project-links"><a href="https://github.com/himanshu9771/flight-booker"
+                                class="project-link" title="View Code"><i class="fab fa-github"></i></a><a href="#"
+                                class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">Booking System</span>
+                    <h3>Flight Booking System</h3>
+                    <p>End-to-end flight booking platform with real-time seat availability, dynamic pricing, payment
+                        integration, and booking management.</p>
+                    <div class="project-tech"><span>Next.js</span><span>Node.js</span><span>MongoDB</span><span>Stripe
+                            API</span><span>Redis</span></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=500&fit=crop"
+                        alt="Certificate Verification">
+                    <div class="project-overlay">
+                        <div class="project-links"><a
+                                href="https://github.com/himanshu9771/Certificate-verification-system"
+                                class="project-link" title="View Code"><i class="fab fa-github"></i></a><a href="#"
+                                class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">Blockchain</span>
+                    <h3>Certificate Verification System</h3>
+                    <p>Blockchain-based certificate verification with QR code generation, tamper-proof records, and
+                        instant validation for educational institutions.</p>
+                    <div class="project-tech">
+                        <span>React.js</span><span>Node.js</span><span>Ethereum</span><span>IPFS</span><span>Express</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="animate-on-scroll">
+        <div class="section-header">
+            <span class="section-tag">Journey</span>
+            <h2 class="section-title">Work <span>Experience</span></h2>
+            <p class="section-desc">My professional journey and career milestones</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Oct 2025 - Dec 2025</div>
+                    <h3>Frontend Developer Intern</h3>
+                    <h4>Happieloop Technologies Pvt. Ltd.</h4>
+                    <p>Responsible for developing and maintaining responsive user interfaces using modern frontend
+                        frameworks. Collaborated with cross-functional teams to deliver high-quality web applications
+                        and improve user experience.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Nov 2025 - Feb 2026</div>
+                    <h3>Full Stack Developer</h3>
+                    <h4>Amdox Technologies Pvt. Ltd.</h4>
+                    <p>Responsible for developing and maintaining responsive user interfaces using modern frontend
+                        frameworks. Collaborated with cross-functional teams to deliver high-quality web applications
+                        and improve user experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="animate-on-scroll">
+        <div class="section-header">
+            <span class="section-tag">Get In Touch</span>
+            <h2 class="section-title">Let's Work <span>Together</span></h2>
+            <p class="section-desc">Have a project in mind? Let's create something amazing</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Let's Discuss Your Project</h3>
+                <p>I am always interested in hearing about new projects and opportunities. Whether you have a question
+                    or just want to say hi, feel free to reach out!</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>himanshusharma9663@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 9771050501</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Dehradun, Uttarakhand</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" name="name"
+                            placeholder="Enter Your Name" required></div>
+                    <div class="form-group"><label for="email">Email Address</label><input type="email" id="email"
+                            name="email" placeholder="Enter Your Email" required></div>
+                    <div class="form-group"><label for="subject">Subject</label><input type="text" id="subject"
+                            name="subject" placeholder="Enter Your Subject" required></div>
+                    <div class="form-group"><label for="message">Message</label><textarea id="message" name="message"
+                            placeholder="Enter Your Message" required></textarea></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;"><i
+                            class="fas fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/himanshu9771" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/shivam-kumar-b0aab2209/" class="social-link"><i
+                    class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p class="footer-text">Designed & Built with <span>♥</span> by Shivam | &copy; 2025 All Rights Reserved</p>
+    </footer>
+
+    <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
+    <script src="script.js"> </script>
+</body>
+
+</html>
