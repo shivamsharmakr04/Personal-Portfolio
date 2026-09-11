@@ -221,17 +221,6 @@ if (canvas) {
 }
 
 // ==========================================
-// Cursor Glow Effect
-// ==========================================
-const cursorGlow = document.getElementById('cursorGlow');
-if (cursorGlow) {
-    document.addEventListener('mousemove', (e) => {
-        cursorGlow.style.left = e.clientX + 'px';
-        cursorGlow.style.top = e.clientY + 'px';
-    });
-}
-
-// ==========================================
 // 3D Card Tilt Effect
 // ==========================================
 const tiltCards = document.querySelectorAll('.tilt-card');

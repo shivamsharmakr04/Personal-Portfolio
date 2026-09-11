@@ -1807,23 +1807,6 @@ footer {
     to { transform: rotate(360deg); }
 }
 
-.cursor-glow {
-    position: fixed;
-    width: 320px;
-    height: 320px;
-    background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s ease;
-    opacity: 0;
-}
-
-@media (hover: hover) {
-    .cursor-glow { opacity: 1; }
-}
-
 /* Responsive Media Queries */
 @media (max-width: 1024px) {
     .hero-content {
