@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="cyber">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shivam | Full Stack Developer</title>
     <link rel="icon" type="image/png" href="Logo.png">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="scroll-progress-bar" id="scrollProgress"></div>
+    <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
     <div class="loader" id="loader">
         <div class="loader-spinner"></div>
     </div>
@@ -24,7 +25,7 @@
     <div class="grid-overlay"></div>
 
     <nav id="navbar">
-        <div class="logo"></div>
+        <a href="#home" class="logo">Shivam<span>.dev</span></a>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -35,12 +36,35 @@
             <li><a href="#certifications">Certifications</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <div class="nav-actions">
+            <div class="theme-switcher" id="themeSwitcher">
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Select Theme">
+                    <i class="fas fa-palette"></i>
+                    <span class="theme-current-name">Cyber Indigo</span>
+                    <i class="fas fa-chevron-down arrow"></i>
+                </button>
+                <div class="theme-dropdown" id="themeDropdown">
+                    <button class="theme-opt active" data-theme="cyber">
+                        <span class="dot cyber-dot"></span> Cyber Indigo
+                    </button>
+                    <button class="theme-opt" data-theme="emerald">
+                        <span class="dot emerald-dot"></span> Emerald Aurora
+                    </button>
+                    <button class="theme-opt" data-theme="sunset">
+                        <span class="dot sunset-dot"></span> Sunset Pulse
+                    </button>
+                    <button class="theme-opt" data-theme="matrix">
+                        <span class="dot matrix-dot"></span> Neon Matrix
+                    </button>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Mobile Menu"><i class="fas fa-bars"></i></button>
+        </div>
     </nav>
 
     <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
     <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" id="mobileMenuClose"><i class="fas fa-times"></i></button>
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close Mobile Menu"><i class="fas fa-times"></i></button>
         <ul class="mobile-menu-links">
             <li><a href="#home" class="mobile-link">Home</a></li>
             <li><a href="#about" class="mobile-link">About</a></li>
@@ -56,46 +80,67 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="hero-text">
-                <div class="hero-badge"><span class="pulse"></span>Available for freelance work</div>
+                <div class="hero-badge"><span class="pulse"></span>Available for freelance & full-time roles</div>
                 <h1>Building Digital <span>Experiences</span> That Matter</h1>
                 <p class="hero-description">Full Stack Developer specializing in building exceptional digital
                     experiences. I craft scalable web applications with modern technologies and AI integration.</p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> View Projects</a>
-                    <a href="Shivam_Kumar_Resume.pdf" class="btn btn-secondary" download><i class="fas fa-file-pdf"></i>
-                        Resume</a>
-                    <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact</a>
+                    <a href="Shivam_Kumar_Resume.pdf" class="btn btn-secondary" download><i class="fas fa-file-pdf"></i> Resume</a>
+                    <a href="#contact" class="btn btn-secondary"><i class="fas fa-paper-plane"></i> Contact</a>
                 </div>
             </div>
             <div class="hero-visual">
                 <div class="code-window">
                     <div class="code-header">
-                        <div class="dot dot-red"></div>
-                        <div class="dot dot-yellow"></div>
-                        <div class="dot dot-green"></div>
-                        <span style="margin-left: 1rem; color: var(--gray); font-size: 0.85rem;">developer.js</span>
+                        <div class="code-window-controls">
+                            <div class="dot dot-red"></div>
+                            <div class="dot dot-yellow"></div>
+                            <div class="dot dot-green"></div>
+                        </div>
+                        <div class="code-tabs">
+                            <button class="code-tab active" data-tab="js"><i class="fab fa-js"></i> developer.js</button>
+                            <button class="code-tab" data-tab="json"><i class="fas fa-code"></i> skills.json</button>
+                            <button class="code-tab" data-tab="terminal"><i class="fas fa-terminal"></i> terminal</button>
+                        </div>
                     </div>
-                    <div class="code-content">
-                        <div class="code-line"><span class="line-num">1</span><span><span
-                                    class="code-keyword">const</span> <span class="code-variable">developer</span> =
-                                {</span></div>
-                        <div class="code-line"><span class="line-num">2</span><span>&nbsp;&nbsp;<span
-                                    class="code-variable">name</span>: <span class="code-string">"Shivam
-                                    Kumar"</span>,</span></div>
-                        <div class="code-line"><span class="line-num">3</span><span>&nbsp;&nbsp;<span
-                                    class="code-variable">role</span>: <span class="code-string">"Full Stack
-                                    Developer"</span>,</span></div>
-                        <div class="code-line"><span class="line-num">4</span><span>&nbsp;&nbsp;<span
-                                    class="code-variable">skills</span>: [<span class="code-string">"React"</span>,
-                                <span class="code-string">"Node"</span>, <span
-                                    class="code-string">"Python"</span>],</span></div>
-                        <div class="code-line"><span class="line-num">5</span><span>&nbsp;&nbsp;<span
-                                    class="code-variable">passion</span>: <span class="code-string">"Building the
-                                    future"</span>,</span></div>
-                        <div class="code-line"><span class="line-num">6</span><span>&nbsp;&nbsp;<span
-                                    class="code-function">createMagic</span>: () => <span class="code-string">"Let's
-                                    build something amazing"</span></span></div>
-                        <div class="code-line"><span class="line-num">7</span><span>};</span></div>
+                    <div class="code-body">
+                        <!-- JS View -->
+                        <div class="tab-content active" id="tab-js">
+                            <div class="code-line"><span class="line-num">1</span><span><span class="code-keyword">const</span> <span class="code-variable">developer</span> = {</span></div>
+                            <div class="code-line"><span class="line-num">2</span><span>&nbsp;&nbsp;<span class="code-variable">name</span>: <span class="code-string">"Shivam Kumar"</span>,</span></div>
+                            <div class="code-line"><span class="line-num">3</span><span>&nbsp;&nbsp;<span class="code-variable">role</span>: <span class="code-string">"Full Stack Developer"</span>,</span></div>
+                            <div class="code-line"><span class="line-num">4</span><span>&nbsp;&nbsp;<span class="code-variable">skills</span>: [<span class="code-string">"React"</span>, <span class="code-string">"Node"</span>, <span class="code-string">"Python"</span>, <span class="code-string">"AI"</span>],</span></div>
+                            <div class="code-line"><span class="line-num">5</span><span>&nbsp;&nbsp;<span class="code-variable">status</span>: <span class="code-string">"Open to Freelance & Roles"</span>,</span></div>
+                            <div class="code-line"><span class="line-num">6</span><span>&nbsp;&nbsp;<span class="code-function">createMagic</span>: () =&gt; <span class="code-string">"Building scalable web apps"</span></span></div>
+                            <div class="code-line"><span class="line-num">7</span><span>};</span></div>
+                        </div>
+                        <!-- JSON View -->
+                        <div class="tab-content" id="tab-json">
+                            <div class="code-line"><span class="line-num">1</span><span>{</span></div>
+                            <div class="code-line"><span class="line-num">2</span><span>&nbsp;&nbsp;<span class="code-string">"frontend"</span>: [<span class="code-string">"React.js"</span>, <span class="code-string">"Next.js"</span>, <span class="code-string">"TypeScript"</span>],</span></div>
+                            <div class="code-line"><span class="line-num">3</span><span>&nbsp;&nbsp;<span class="code-string">"backend"</span>: [<span class="code-string">"Node.js"</span>, <span class="code-string">"Express"</span>, <span class="code-string">"Python"</span>],</span></div>
+                            <div class="code-line"><span class="line-num">4</span><span>&nbsp;&nbsp;<span class="code-string">"database"</span>: [<span class="code-string">"MongoDB"</span>, <span class="code-string">"PostgreSQL"</span>],</span></div>
+                            <div class="code-line"><span class="line-num">5</span><span>&nbsp;&nbsp;<span class="code-string">"cloud_ai"</span>: [<span class="code-string">"AWS"</span>, <span class="code-string">"Docker"</span>, <span class="code-string">"OpenAI API"</span>]</span></div>
+                            <div class="code-line"><span class="line-num">6</span><span>}</span></div>
+                        </div>
+                        <!-- Interactive Terminal View -->
+                        <div class="tab-content" id="tab-terminal">
+                            <div class="terminal-container">
+                                <div class="terminal-welcome">Shivam Dev Shell v2.5 [Type 'help' for commands]</div>
+                                <div class="terminal-output" id="terminalOutput"></div>
+                                <form id="terminalForm" class="terminal-input-line">
+                                    <span class="terminal-prompt">shivam@portfolio:~$</span>
+                                    <input type="text" id="terminalInput" class="terminal-input" autocomplete="off" placeholder="type help, skills, projects...">
+                                </form>
+                                <div class="terminal-quick-actions">
+                                    <button class="term-btn" data-cmd="skills">skills</button>
+                                    <button class="term-btn" data-cmd="projects">projects</button>
+                                    <button class="term-btn" data-cmd="contact">contact</button>
+                                    <button class="term-btn" data-cmd="clear">clear</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -136,8 +181,7 @@
             <div class="about-text">
                 <h3>Crafting Digital Excellence</h3>
                 <p>I am a passionate Full Stack Developer with expertise in modern web technologies and AI/ML
-                    integration. With over 1+ years of experience, I specialize in building scalable, user-centric
-                    applications that solve real-world problems.</p>
+                    integration. With practical hands-on experience in building scalable, user-centric applications, I focus on solving real-world problems.</p>
                 <p>My journey began with a curiosity for how things work on the web, which evolved into a deep passion
                     for creating seamless digital experiences. I believe in writing clean, maintainable code and staying
                     ahead of technology trends.</p>
@@ -168,7 +212,7 @@
             <p class="section-desc">Technologies I work with to bring ideas to life</p>
         </div>
         <div class="skills-grid">
-            <div class="skill-card">
+            <div class="skill-card tilt-card">
                 <div class="skill-icon"><i class="fab fa-react"></i></div>
                 <h3>Frontend Development</h3>
                 <p>Building responsive, interactive UIs with React.js, Next.js, and modern CSS frameworks.</p>
@@ -189,7 +233,7 @@
                     </div>
                 </div>
             </div>
-            <div class="skill-card">
+            <div class="skill-card tilt-card">
                 <div class="skill-icon"><i class="fab fa-node-js"></i></div>
                 <h3>Backend Development</h3>
                 <p>Creating robust APIs and server-side applications with Node.js, Express, and Python.</p>
@@ -209,7 +253,7 @@
                     </div>
                 </div>
             </div>
-            <div class="skill-card">
+            <div class="skill-card tilt-card">
                 <div class="skill-icon"><i class="fas fa-database"></i></div>
                 <h3>Database & Cloud</h3>
                 <p>Designing efficient database schemas and deploying scalable cloud infrastructure.</p>
@@ -228,7 +272,7 @@
                     </div>
                 </div>
             </div>
-            <div class="skill-card">
+            <div class="skill-card tilt-card">
                 <div class="skill-icon"><i class="fas fa-brain"></i></div>
                 <h3>AI & Machine Learning</h3>
                 <p>Implementing intelligent solutions using Python ML libraries and AI APIs.</p>
@@ -256,15 +300,25 @@
             <h2 class="section-title">Featured <span>Projects</span></h2>
             <p class="section-desc">Some of my recent work that showcases my skills</p>
         </div>
+
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all"><i class="fas fa-border-all"></i> All Projects</button>
+            <button class="filter-btn" data-filter="fullstack"><i class="fas fa-layer-group"></i> Full Stack</button>
+            <button class="filter-btn" data-filter="dashboard"><i class="fas fa-chart-line"></i> Dashboard</button>
+            <button class="filter-btn" data-filter="booking"><i class="fas fa-plane"></i> Booking</button>
+            <button class="filter-btn" data-filter="blockchain"><i class="fas fa-cubes"></i> Blockchain</button>
+        </div>
+
         <div class="projects-grid">
-            <div class="project-card">
+            <div class="project-card tilt-card" data-category="fullstack" data-project-id="job-portal">
                 <div class="project-image">
                     <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop"
                         alt="Job Portal">
                     <div class="project-overlay">
-                        <div class="project-links"><a href="https://github.com/himanshu9771/job-listing-app"
-                                class="project-link" title="View Code"><i class="fab fa-github"></i></a><a href="#"
-                                class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        <div class="project-links">
+                            <a href="https://github.com/himanshu9771/job-listing-app" target="_blank" rel="noopener" class="project-link" title="View Code"><i class="fab fa-github"></i></a>
+                            <button class="project-link project-details-btn" data-project-id="job-portal" title="Quick Details"><i class="fas fa-info-circle"></i></button>
+                            <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -278,14 +332,15 @@
                     </div>
                 </div>
             </div>
-            <div class="project-card">
+            <div class="project-card tilt-card" data-category="dashboard" data-project-id="finance-dashboard">
                 <div class="project-image">
                     <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop"
                         alt="Finance Dashboard">
                     <div class="project-overlay">
-                        <div class="project-links"><a href="https://github.com/himanshu9771/finance-Dashboard"
-                                class="project-link" title="View Code"><i class="fab fa-github"></i></a><a href="#"
-                                class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        <div class="project-links">
+                            <a href="https://github.com/himanshu9771/finance-Dashboard" target="_blank" rel="noopener" class="project-link" title="View Code"><i class="fab fa-github"></i></a>
+                            <button class="project-link project-details-btn" data-project-id="finance-dashboard" title="Quick Details"><i class="fas fa-info-circle"></i></button>
+                            <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -299,14 +354,15 @@
                     </div>
                 </div>
             </div>
-            <div class="project-card">
+            <div class="project-card tilt-card" data-category="booking" data-project-id="flight-booking">
                 <div class="project-image">
                     <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=500&fit=crop"
                         alt="Flight Booking">
                     <div class="project-overlay">
-                        <div class="project-links"><a href="https://github.com/himanshu9771/flight-booker"
-                                class="project-link" title="View Code"><i class="fab fa-github"></i></a><a href="#"
-                                class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        <div class="project-links">
+                            <a href="https://github.com/himanshu9771/flight-booker" target="_blank" rel="noopener" class="project-link" title="View Code"><i class="fab fa-github"></i></a>
+                            <button class="project-link project-details-btn" data-project-id="flight-booking" title="Quick Details"><i class="fas fa-info-circle"></i></button>
+                            <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -315,19 +371,18 @@
                     <h3>Flight Booking System</h3>
                     <p>End-to-end flight booking platform with real-time seat availability, dynamic pricing, payment
                         integration, and booking management.</p>
-                    <div class="project-tech"><span>Next.js</span><span>Node.js</span><span>MongoDB</span><span>Stripe
-                            API</span><span>Redis</span></div>
+                    <div class="project-tech"><span>Next.js</span><span>Node.js</span><span>MongoDB</span><span>Stripe API</span><span>Redis</span></div>
                 </div>
             </div>
-            <div class="project-card">
+            <div class="project-card tilt-card" data-category="blockchain" data-project-id="certificate-verification">
                 <div class="project-image">
                     <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=500&fit=crop"
                         alt="Certificate Verification">
                     <div class="project-overlay">
-                        <div class="project-links"><a
-                                href="https://github.com/himanshu9771/Certificate-verification-system"
-                                class="project-link" title="View Code"><i class="fab fa-github"></i></a><a href="#"
-                                class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                        <div class="project-links">
+                            <a href="https://github.com/himanshu9771/Certificate-verification-system" target="_blank" rel="noopener" class="project-link" title="View Code"><i class="fab fa-github"></i></a>
+                            <button class="project-link project-details-btn" data-project-id="certificate-verification" title="Quick Details"><i class="fas fa-info-circle"></i></button>
+                            <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -382,7 +437,7 @@
             <h2 class="section-title">Web Development <span>Training</span></h2>
             <p class="section-desc">Practical training completed with Amdox Technologies</p>
         </div>
-        <div class="training-card">
+        <div class="training-card tilt-card">
             <div class="training-icon"><i class="fas fa-graduation-cap"></i></div>
             <div class="training-content">
                 <div class="training-heading">
@@ -408,7 +463,7 @@
             <p class="section-desc">Recognized learning milestones that strengthen my technical foundation</p>
         </div>
         <div class="certifications-grid">
-            <article class="certification-card">
+            <article class="certification-card tilt-card">
                 <div class="certification-icon"><i class="fas fa-laptop-code"></i></div>
                 <div class="certification-content">
                     <div class="certification-meta"><span>Internship Certificate</span><span>Oct 2025 - Dec 2025</span></div>
@@ -420,7 +475,7 @@
                     </div>
                 </div>
             </article>
-            <article class="certification-card">
+            <article class="certification-card tilt-card">
                 <div class="certification-icon"><i class="fas fa-globe"></i></div>
                 <div class="certification-content">
                     <div class="certification-meta"><span>Internship Certificate</span><span>Nov 2025 - Feb 2026</span></div>
@@ -432,7 +487,7 @@
                     </div>
                 </div>
             </article>
-            <article class="certification-card">
+            <article class="certification-card tilt-card">
                 <div class="certification-icon"><i class="fas fa-graduation-cap"></i></div>
                 <div class="certification-content">
                     <div class="certification-meta"><span>Training Certificate</span><span>Nov 2025 - Feb 2026</span></div>
@@ -461,21 +516,27 @@
                 <div class="contact-details">
                     <div class="contact-item">
                         <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div>
+                        <div class="contact-text-box">
                             <h4>Email</h4>
                             <p>shivamsharmakr04@gmail.com</p>
                         </div>
+                        <button class="copy-btn" data-copy="shivamsharmakr04@gmail.com" title="Copy Email">
+                            <i class="far fa-copy"></i>
+                        </button>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                        <div>
+                        <div class="contact-text-box">
                             <h4>Phone</h4>
                             <p>+91 9771050501</p>
                         </div>
+                        <button class="copy-btn" data-copy="+919771050501" title="Copy Phone">
+                            <i class="far fa-copy"></i>
+                        </button>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div>
+                        <div class="contact-text-box">
                             <h4>Location</h4>
                             <p>Dehradun, Uttarakhand</p>
                         </div>
@@ -501,15 +562,25 @@
 
     <footer>
         <div class="social-links">
-            <a href="https://github.com/shivamsharmakr04" class="social-link"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/shivam-kumar-b0aab2209/" class="social-link"><i
-                    class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/shivamsharmakr04" target="_blank" rel="noopener" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/shivam-kumar-b0aab2209/" target="_blank" rel="noopener" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <p class="footer-text">Designed & Built with <span>♥</span> by Shivam | &copy; 2025 All Rights Reserved</p>
     </footer>
 
-    <button class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></button>
-    <script src="script.js"> </script>
-</body>
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
 
+    <!-- Project Modal -->
+    <div class="project-modal-overlay" id="projectModalOverlay">
+        <div class="project-modal" id="projectModal">
+            <button class="modal-close" id="modalClose" aria-label="Close modal"><i class="fas fa-times"></i></button>
+            <div class="modal-content" id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
 </html>
