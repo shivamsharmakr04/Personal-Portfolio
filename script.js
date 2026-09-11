@@ -594,3 +594,20 @@ if (contactForm) {
         }, 3000);
     });
 }
+
+// ==========================================
+// Technical Skill Progress Loader Animation
+// ==========================================
+const skillCards = document.querySelectorAll('.skill-card');
+skillCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        const fills = card.querySelectorAll('.skill-fill');
+        fills.forEach(fill => {
+            const target = fill.style.getPropertyValue('--progress') || fill.getAttribute('style')?.match(/--progress:\s*([^;]+)/)?.[1] || '85%';
+            fill.style.width = '0%';
+            setTimeout(() => {
+                fill.style.width = target.trim();
+            }, 60);
+        });
+    });
+});
