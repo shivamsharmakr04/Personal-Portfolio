@@ -1,78 +1,104 @@
-# Shivam Kumar Portfolio
+# Shivam Kumar | Full Stack Developer Portfolio
 
-A responsive personal portfolio website for Shivam Kumar, a Full Stack Developer. The site presents professional experience, technical skills, featured projects, training, certifications, and contact information in a single-page layout.
+A modern, high-performance personal portfolio website for **Shivam Kumar**, a Full Stack Developer specializing in building scalable web applications and AI/ML integrations. 
 
-## Features
+Featuring a sleek dark-mode aesthetic, multi-theme color palette engine, interactive HTML5 particle background, 3D card tilt physics, interactive hero developer terminal shell, project category filters, detailed project modal popups, and toast alert notifications.
 
-- Responsive single-page portfolio layout
-- Hero section with resume download and project/contact links
-- About section with profile image and technology stack
-- Skills section covering frontend, backend, databases/cloud, and AI/ML
-- Featured project showcase with GitHub links
-- Experience and web development training timeline
-- Certification links for completed internships and training
-- Mobile navigation menu
-- Scroll-triggered animations and animated statistics
-- Scroll-to-top control and cursor glow effect
-- Contact form submission through Web3Forms
+---
 
-## Project Structure
+## ✨ Features & Highlights
 
-| File or folder | Purpose |
-| --- | --- |
-| `index.html` | Main page markup and portfolio content |
-| `style.css` | Layout, responsive styles, visual effects, and animations |
-| `script.js` | Menu behavior, scroll effects, counters, animations, and contact form handling |
-| `Logo.png` | Browser favicon/logo asset |
-| `Profile.jpeg` | Profile image used in the About section |
-| `Shivam_Kumar_Resume.pdf` | Downloadable resume |
-| `Amdox Web Deveploment Completion Certificate.pdf` | Amdox completion certificate |
-| `Shivam Kumar - Certificate Happieloop.pdf` | Happieloop internship certificate |
-| `Training Certificate in Web Developement.pdf` | Web development training certificate |
+### 🎨 Dynamic Multi-Theme Engine
+Switch between 4 curated color themes directly from the header navigation bar:
+- 🌌 **Cyber Indigo (Default)**: Deep midnight obsidian (`#050811`) with neon indigo & hot pink glow.
+- 🌿 **Emerald Aurora**: Deep forest teal (`#03120e`) with vibrant emerald green & mint accents.
+- 🌅 **Sunset Pulse**: Dark velvet (`#120616`) with rose pink & sunset orange highlights.
+- ⚡ **Neon Matrix**: Deep tech black (`#040907`) with matrix green & electric blue glows.
+*Theme selections are automatically saved in `localStorage`.*
 
-## Run Locally
+### ⚡ Interactive Animations & Micro-Interactions
+- **HTML5 Canvas Particle Background**: Lightweight particle constellation reacting to mouse movement.
+- **Top Scroll Progress Indicator**: Glowing line tracking scroll position across the document.
+- **3D Card Tilt Physics**: Perspective calculations applying smooth 3D tilt effects on project, skill, and certification cards.
+- **Hover Animated Skill Loaders**: Technical skills progress loaders (`React.js 95%`, `Node.js 92%`, `MongoDB 88%`, `OpenAI 82%`) animate and glow upon scroll or cursor hover.
 
-This is a static website and does not require a build step or package installation.
+### 💻 Hero Code Window & Developer CLI Shell
+- **Tabbed Interface**: Easily switch between `developer.js` (code breakdown), `skills.json` (tech stack), and `terminal` (CLI shell).
+- **Interactive Terminal**: Type commands (`help`, `skills`, `projects`, `contact`, `about`, `theme emerald`, `clear`) or click quick-action trigger pills.
 
-1. Open the project folder in VS Code.
-2. Open `index.html` directly in a browser, or serve the folder with a local static server.
+### 🚀 Projects Showcase & Modal Previews
+- **Real-Time Category Filtering**: Filter projects by `All Projects`, `Full Stack`, `Dashboard`, `Booking`, and `Blockchain`.
+- **Project Detail Modal**: Instant popups detailing architecture features, key technical highlights, live links, and GitHub repositories.
 
-For example, with Python installed:
+### 📬 Contact & Micro-UX Utilities
+- **1-Click Copy Buttons**: Quick-copy buttons for email (`shivamsharmakr04@gmail.com`) and phone (`+91 9771050501`).
+- **Toast Alert System**: Animated notification alerts for theme changes, clipboard copies, and form submissions.
+- **Web3Forms Integration**: Fully functional contact form.
 
-```bash
-python -m http.server 8000
+---
+
+## 📁 Project Structure
+
+```
+Portfolio/
+├── index.html                                 # Main markup & portfolio content
+├── style.css                                  # Core design system, CSS theme variables, glassmorphism & animations
+├── script.js                                  # Theme engine, canvas particles, terminal CLI, tilt cards, modal & toasts
+├── Logo.png                                   # Favicon asset
+├── Profile.jpeg                               # Profile avatar photo
+├── Shivam_Kumar_Resume.pdf                    # Downloadable resume
+├── Amdox Web Deveploment Completion Certificate.pdf # Internship completion certificate
+├── Shivam Kumar - Certificate Happieloop.pdf  # Internship certificate
+└── Training Certificate in Web Developement.pdf# Practical training certificate
 ```
 
-Then visit <http://localhost:8000>.
+---
 
-## External Services
+## 💻 Run Locally
 
-The page loads these resources from external services:
+Since this is a client-side web app, no complex build tools or dependencies are required.
 
-- Google Fonts: Inter and JetBrains Mono
-- Font Awesome 6.4.0 via cdnjs
-- Unsplash images for project cards
-- Web3Forms API for contact form submissions
+1. **Clone or download the repository**:
+   ```bash
+   git clone https://github.com/shivamsharmakr04/Personal-Portfolio.git
+   cd Personal-Portfolio
+   ```
 
-The contact form configuration is in `script.js`. Replace the Web3Forms access key there with the key for the intended deployment before publishing, and avoid committing private credentials.
+2. **Run a static HTTP server**:
+   
+   *Using Node.js*:
+   ```bash
+   npx serve -l 8080
+   ```
 
-## Customization
+   *Using Python*:
+   ```bash
+   python -m http.server 8080
+   ```
 
-- Update portfolio text, project details, links, and contact information in `index.html`.
-- Replace profile and document assets in the project root as needed.
-- Adjust colors, spacing, responsive breakpoints, and animations in `style.css`.
-- Update form behavior or the email service integration in `script.js`.
-- Replace placeholder project demo links (`href="#"`) with live deployments when available.
+3. **Open in browser**:
+   Navigate to `http://localhost:8080`.
 
-## Deployment
+---
 
-Because the project is fully static, it can be deployed to GitHub Pages, Netlify, Vercel, or any static hosting provider. Upload the complete project folder so the HTML, CSS, JavaScript, images, and PDF documents keep their relative paths.
+## 🌐 External CDN Resources
 
-## Contact
+- **Fonts**: [Google Fonts](https://fonts.google.com/) (Inter & JetBrains Mono)
+- **Icons**: [Font Awesome 6.4.0](https://fontawesome.com/) via cdnjs
+- **Form Submissions**: [Web3Forms API](https://web3forms.com/)
+- **Images**: High quality placeholders via Unsplash
 
-The portfolio currently displays:
+---
 
-- Email: shivamsharmakr04@gmail.com
-- Location: Dehradun, Uttarakhand
-- GitHub: <https://github.com/shivamsharmakr04>
-- LinkedIn: <https://www.linkedin.com/in/shivam-kumar-b0aab2209/>
+## 📬 Contact & Socials
+
+- **Developer**: Shivam Kumar
+- **Email**: [shivamsharmakr04@gmail.com](mailto:shivamsharmakr04@gmail.com)
+- **Phone**: +91 9771050501
+- **Location**: Dehradun, Uttarakhand
+- **GitHub**: [github.com/shivamsharmakr04](https://github.com/shivamsharmakr04)
+- **LinkedIn**: [linkedin.com/in/shivam-kumar-b0aab2209](https://www.linkedin.com/in/shivam-kumar-b0aab2209/)
+
+---
+
+*Designed & Built with ♥ by Shivam*
