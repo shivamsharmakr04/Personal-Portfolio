@@ -1,114 +1,55 @@
-// ==========================================================================
-// SHIVAM KUMAR - PORTFOLIO INTERACTION ENGINE
-// Audio FX, 6-Theme Manager, Terminal, Command Palette, Interactive Sandboxes
-// ==========================================================================
+// Shivam Kumar Portfolio — verified-data interaction layer
 
-// Page Loader
 window.addEventListener('load', () => {
-    setTimeout(() => {
-        const loader = document.getElementById('loader');
-        if (loader) loader.classList.add('hidden');
-    }, 450);
+    const loader = document.getElementById('loader');
+    if (loader) setTimeout(() => loader.classList.add('hidden'), 350);
 });
 
-// ==========================================
-// 1. Web Audio API Micro-Synthesizer (Zero External Audio Files)
-// ==========================================
+// Lightweight optional sound effects
 class SoundFX {
     constructor() {
-        this.ctx = null;
         this.enabled = localStorage.getItem('soundFXEnabled') === 'true';
-        this.initButton();
-    }
-
-    initCtx() {
-        if (!this.ctx) {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (AudioContext) this.ctx = new AudioContext();
-        }
-        if (this.ctx && this.ctx.state === 'suspended') {
-            this.ctx.resume();
-        }
-    }
-
-    initButton() {
-        const btn = document.getElementById('soundToggleBtn');
-        const icon = document.getElementById('soundIcon');
-        if (!btn || !icon) return;
-
-        if (this.enabled) {
-            btn.classList.add('sound-on');
-            icon.className = 'fas fa-volume-high';
-        } else {
-            btn.classList.remove('sound-on');
-            icon.className = 'fas fa-volume-mute';
-        }
-
-        btn.addEventListener('click', () => {
+        this.ctx = null;
+        this.button = document.getElementById('soundToggleBtn');
+        this.icon = document.getElementById('soundIcon');
+        this.sync();
+        if (this.button) this.button.addEventListener('click', () => {
             this.enabled = !this.enabled;
-            localStorage.setItem('soundFXEnabled', this.enabled);
-            if (this.enabled) {
-                this.initCtx();
-                btn.classList.add('sound-on');
-                icon.className = 'fas fa-volume-high';
-                this.play('pop');
-                showToast('Sound Effects Enabled 🔊', 'fas fa-volume-high');
-            } else {
-                btn.classList.remove('sound-on');
-                icon.className = 'fas fa-volume-mute';
-                showToast('Sound Effects Muted 🔇', 'fas fa-volume-mute');
-            }
+            localStorage.setItem('soundFXEnabled', String(this.enabled));
+            this.sync();
+            if (this.enabled) this.play('pop');
         });
     }
-
+    sync() {
+        if (!this.button || !this.icon) return;
+        this.button.classList.toggle('sound-on', this.enabled);
+        this.icon.className = this.enabled ? 'fas fa-volume-high' : 'fas fa-volume-mute';
+    }
     play(type = 'click') {
         if (!this.enabled) return;
         try {
-            this.initCtx();
-            if (!this.ctx) return;
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            if (!this.ctx) this.ctx = new AudioContext();
+            if (this.ctx.state === 'suspended') this.ctx.resume();
             const now = this.ctx.currentTime;
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
-
             osc.connect(gain);
             gain.connect(this.ctx.destination);
-
-            if (type === 'click') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(800, now);
-                osc.frequency.exponentialRampToValueAtTime(300, now + 0.05);
-                gain.gain.setValueAtTime(0.08, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-                osc.start(now);
-                osc.stop(now + 0.05);
-            } else if (type === 'pop') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(440, now);
-                osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
-                gain.gain.setValueAtTime(0.1, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-                osc.start(now);
-                osc.stop(now + 0.08);
-            } else if (type === 'success') {
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(523.25, now); // C5
-                osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
-                osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
-                gain.gain.setValueAtTime(0.12, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-                osc.start(now);
-                osc.stop(now + 0.28);
-            }
-        } catch (e) {
-            // Audio context silently handled
-        }
+            osc.type = type === 'success' ? 'triangle' : 'sine';
+            osc.frequency.setValueAtTime(type === 'pop' ? 660 : 520, now);
+            osc.frequency.exponentialRampToValueAtTime(type === 'pop' ? 900 : 300, now + 0.07);
+            gain.gain.setValueAtTime(0.06, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+            osc.start(now);
+            osc.stop(now + 0.08);
+        } catch (_) {}
     }
 }
 const sfx = new SoundFX();
 
-// ==========================================
-// 2. Multi-Theme Engine & Manager (6 Curated Themes)
-// ==========================================
+// Theme switcher
 const themeNames = {
     cyber: 'Cyber Indigo',
     sapphire: 'Midnight Sapphire',
@@ -117,320 +58,144 @@ const themeNames = {
     matrix: 'Neon Matrix',
     amethyst: 'Amethyst Twilight'
 };
-
-const themeToggleBtn = document.getElementById('themeToggleBtn');
 const themeSwitcher = document.getElementById('themeSwitcher');
-const themeOpts = document.querySelectorAll('.theme-opt');
+const themeToggleBtn = document.getElementById('themeToggleBtn');
 const themeCurrentName = document.querySelector('.theme-current-name');
+const themeOpts = document.querySelectorAll('.theme-opt');
 
-function setTheme(themeName) {
-    if (!themeNames[themeName]) themeName = 'cyber';
-    document.documentElement.setAttribute('data-theme', themeName);
-    localStorage.setItem('portfolioTheme', themeName);
-
-    themeOpts.forEach(opt => {
-        if (opt.getAttribute('data-theme') === themeName) {
-            opt.classList.add('active');
-        } else {
-            opt.classList.remove('active');
-        }
-    });
-
-    if (themeCurrentName) {
-        themeCurrentName.textContent = themeNames[themeName];
-    }
+function setTheme(name) {
+    const theme = themeNames[name] ? name : 'cyber';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolioTheme', theme);
+    themeOpts.forEach(opt => opt.classList.toggle('active', opt.dataset.theme === theme));
+    if (themeCurrentName) themeCurrentName.textContent = themeNames[theme];
 }
-
-// Load persisted theme
-const savedTheme = localStorage.getItem('portfolioTheme') || 'cyber';
-setTheme(savedTheme);
+setTheme(localStorage.getItem('portfolioTheme') || 'cyber');
 
 if (themeToggleBtn && themeSwitcher) {
     themeToggleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        sfx.play('click');
+        sfx.play();
         themeSwitcher.classList.toggle('open');
     });
-
-    document.addEventListener('click', () => {
+    themeOpts.forEach(opt => opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setTheme(opt.dataset.theme);
         themeSwitcher.classList.remove('open');
-    });
-
-    themeOpts.forEach(opt => {
-        opt.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const chosen = opt.getAttribute('data-theme');
-            setTheme(chosen);
-            themeSwitcher.classList.remove('open');
-            sfx.play('pop');
-            showToast(`Theme switched to ${themeNames[chosen]}`, 'fas fa-palette');
-        });
-    });
+        sfx.play('pop');
+    }));
+    document.addEventListener('click', () => themeSwitcher.classList.remove('open'));
 }
 
-// ==========================================
-// 3. Scroll Progress Bar & Navbar Scroll Effect
-// ==========================================
+// Scroll progress + active navigation
 const navbar = document.getElementById('navbar');
 const scrollProgress = document.getElementById('scrollProgress');
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('section[id]');
-
 window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-
-    if (scrollProgress) {
-        scrollProgress.style.width = scrollPercent + '%';
-    }
-
-    if (navbar) {
-        navbar.classList.toggle('scrolled', scrollTop > 40);
-    }
-
-    // Active Section Tracking
-    let currentId = '';
-    sections.forEach(sec => {
-        const secTop = sec.offsetTop - 140;
-        const secHeight = sec.offsetHeight;
-        if (scrollTop >= secTop && scrollTop < secTop + secHeight) {
-            currentId = sec.getAttribute('id');
-        }
+    const max = document.documentElement.scrollHeight - innerHeight;
+    if (scrollProgress) scrollProgress.style.width = max > 0 ? (scrollY / max) * 100 + '%' : '0%';
+    if (navbar) navbar.classList.toggle('scrolled', scrollY > 40);
+    let current = '';
+    sections.forEach(section => {
+        if (scrollY >= section.offsetTop - 150) current = section.id;
     });
+    navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + current));
+}, {passive: true});
 
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (currentId && link.getAttribute('href') === `#${currentId}`) {
-            link.classList.add('active');
-        }
-    });
-}, { passive: true });
-
-// ==========================================
-// 4. Mobile Menu Drawer
-// ==========================================
+// Mobile menu
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const mobileMenuClose = document.getElementById('mobileMenuClose');
 const mobileMenu = document.getElementById('mobileMenu');
 const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-const mobileLinks = document.querySelectorAll('.mobile-link');
-
 function openMobileMenu() {
-    sfx.play('pop');
+    if (!mobileMenu || !mobileMenuOverlay) return;
     mobileMenu.classList.add('active');
     mobileMenuOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
-
 function closeMobileMenu() {
-    sfx.play('click');
+    if (!mobileMenu || !mobileMenuOverlay) return;
     mobileMenu.classList.remove('active');
     mobileMenuOverlay.classList.remove('active');
     document.body.style.overflow = '';
 }
-
 if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
 if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
 if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', closeMobileMenu));
 
-// ==========================================
-// 5. Scroll to Top Floating Action
-// ==========================================
-const scrollTopBtn = document.getElementById('scrollTop');
-window.addEventListener('scroll', () => {
-    if (scrollTopBtn) {
-        scrollTopBtn.classList.toggle('visible', window.scrollY > 450);
-    }
-}, { passive: true });
-
-if (scrollTopBtn) {
-    scrollTopBtn.addEventListener('click', () => {
-        sfx.play('click');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
-
-// ==========================================
-// 6. Interactive Canvas Particle Background
-// ==========================================
+// Particle background
 const canvas = document.getElementById('particleCanvas');
 if (canvas) {
     const ctx = canvas.getContext('2d');
     let particles = [];
-    let mouseX = -2000;
-    let mouseY = -2000;
-
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    let mouseX = -1000, mouseY = -1000;
+    const resize = () => { canvas.width = innerWidth; canvas.height = innerHeight; };
+    resize();
+    addEventListener('resize', resize);
+    const count = Math.min(60, Math.max(24, Math.floor(innerWidth / 24)));
+    for (let i = 0; i < count; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: (Math.random() - 0.5) * 0.6,
+            r: Math.random() * 1.5 + 0.5
+        });
     }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 0.7;
-            this.vy = (Math.random() - 0.5) * 0.7;
-            this.radius = Math.random() * 1.6 + 0.6;
-        }
-
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
-            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-        }
-
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
-            ctx.fill();
-        }
-    }
-
-    const particleCount = Math.min(Math.floor(window.innerWidth / 22), 65);
-    for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-    }
-
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    }, { passive: true });
-
-    function animateParticles() {
+    addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; }, {passive:true});
+    function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        for (let i = 0; i < particles.length; i++) {
-            particles[i].update();
-            particles[i].draw();
-
-            // Connect nearest nodes
+        particles.forEach((p, i) => {
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,255,255,.32)'; ctx.fill();
             for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < 110) {
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 * (1 - dist / 110)})`;
-                    ctx.lineWidth = 0.5;
+                const q = particles[j], dx = p.x - q.x, dy = p.y - q.y;
+                const d = Math.hypot(dx, dy);
+                if (d < 105) {
+                    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+                    ctx.strokeStyle = `rgba(255,255,255,${0.1 * (1 - d / 105)})`;
                     ctx.stroke();
                 }
             }
-
-            // Mouse interaction node web
-            const mdx = particles[i].x - mouseX;
-            const mdy = particles[i].y - mouseY;
-            const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-            if (mdist < 130) {
-                ctx.beginPath();
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(mouseX, mouseY);
-                ctx.strokeStyle = `rgba(99, 102, 241, ${0.28 * (1 - mdist / 130)})`;
-                ctx.lineWidth = 0.7;
-                ctx.stroke();
-            }
-        }
-        requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-}
-
-// ==========================================
-// 7. Dynamic Typing Effect in Hero Title
-// ==========================================
-const typingElement = document.getElementById('typingText');
-if (typingElement) {
-    const words = [
-        "Modern Web Apps",
-        "Finance Dashboards",
-        "Student LMS Portals",
-        "Scalable Cloud APIs",
-        "AI Driven Solutions"
-    ];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typeDelay = 120;
-
-    function typeEffect() {
-        const currentWord = words[wordIndex];
-        if (isDeleting) {
-            typingElement.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-            typeDelay = 60;
-        } else {
-            typingElement.textContent = currentWord.substring(0, charIndex + 1);
-            charIndex++;
-            typeDelay = 130;
-        }
-
-        if (!isDeleting && charIndex === currentWord.length) {
-            typeDelay = 1800; // pause at end
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            typeDelay = 400;
-        }
-
-        setTimeout(typeEffect, typeDelay);
-    }
-    setTimeout(typeEffect, 800);
-}
-
-// ==========================================
-// 8. 3D Card Tilt Engine
-// ==========================================
-function initTilt() {
-    const tiltCards = document.querySelectorAll('.tilt-card');
-    tiltCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -6;
-            const rotateY = ((x - centerX) / centerX) * 6;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`;
         });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-        });
-    });
+        requestAnimationFrame(animate);
+    }
+    animate();
 }
-initTilt();
 
-// ==========================================
-// 9. Hero Code Playground Tabs & Interactive Terminal
-// ==========================================
-const codeTabs = document.querySelectorAll('.code-tab');
-const tabContents = document.querySelectorAll('.tab-content');
+// Hero typing effect uses only skills/projects actually represented in the repo
+const typing = document.getElementById('typingText');
+if (typing) {
+    const words = ['Real GitHub Projects', 'Full-Stack Applications', 'Responsive Web Interfaces', 'Dashboards & APIs'];
+    let wi = 0, ci = 0, deleting = false;
+    const tick = () => {
+        const word = words[wi];
+        typing.textContent = deleting ? word.slice(0, --ci) : word.slice(0, ++ci);
+        if (!deleting && ci === word.length) { deleting = true; setTimeout(tick, 1400); return; }
+        if (deleting && ci === 0) { deleting = false; wi = (wi + 1) % words.length; }
+        setTimeout(tick, deleting ? 55 : 105);
+    };
+    setTimeout(tick, 700);
+}
 
-codeTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        sfx.play('click');
-        const target = tab.getAttribute('data-tab');
-
-        codeTabs.forEach(t => t.classList.remove('active'));
-        tabContents.forEach(c => c.classList.remove('active'));
-
-        tab.classList.add('active');
-        const targetContent = document.getElementById(`tab-${target}`);
-        if (targetContent) targetContent.classList.add('active');
+// Tilt cards
+document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        const rx = ((y - r.height / 2) / r.height) * -8;
+        const ry = ((x - r.width / 2) / r.width) * 8;
+        card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.01)`;
     });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
+<<<<<<< HEAD
 // Interactive Terminal CLI
 const terminalForm = document.getElementById('terminalForm');
 const terminalInput = document.getElementById('terminalInput');
@@ -514,167 +279,58 @@ if (terminalForm && terminalInput) {
         const cmd = terminalInput.value;
         executeCommand(cmd);
         terminalInput.value = '';
+=======
+// Skills filters
+const skillSearch = document.getElementById('skillSearchInput');
+const skillClear = document.getElementById('clearSkillSearch');
+const skillTabs = document.querySelectorAll('.skill-tab-btn');
+const skillCards = document.querySelectorAll('.skill-card');
+function filterSkills() {
+    const q = skillSearch ? skillSearch.value.trim().toLowerCase() : '';
+    const cat = document.querySelector('.skill-tab-btn.active')?.dataset.category || 'all';
+    skillCards.forEach(card => {
+        const matchesCat = cat === 'all' || card.dataset.cat === cat;
+        const matchesText = !q || card.textContent.toLowerCase().includes(q);
+        card.classList.toggle('filtered-out', !(matchesCat && matchesText));
+>>>>>>> fd8285b3e3281b64d4d43fd98ce085782cc86cfa
     });
 }
+if (skillSearch) skillSearch.addEventListener('input', filterSkills);
+if (skillClear) skillClear.addEventListener('click', () => { skillSearch.value = ''; filterSkills(); skillSearch.focus(); });
+skillTabs.forEach(btn => btn.addEventListener('click', () => {
+    skillTabs.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterSkills();
+}));
 
-termBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const cmd = btn.getAttribute('data-cmd');
-        executeCommand(cmd);
-    });
-});
-
-// ==========================================
-// 10. Project Filtering by Category
-// ==========================================
+// Project filters
 const filterBtns = document.querySelectorAll('.filter-btn');
 const projectCards = document.querySelectorAll('.project-card');
-
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        sfx.play('click');
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.getAttribute('data-filter');
-
-        projectCards.forEach(card => {
-            const category = card.getAttribute('data-category');
-            if (filter === 'all' || category === filter) {
-                card.style.display = 'flex';
-                card.style.animation = 'fadeIn 0.35s ease forwards';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+filterBtns.forEach(btn => btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    projectCards.forEach(card => {
+        const show = filter === 'all' || card.dataset.category === filter;
+        card.style.display = show ? 'flex' : 'none';
+        if (show) card.style.animation = 'fadeIn .35s ease forwards';
     });
-});
+}));
 
-// ==========================================
-// 11. Interactive Skills Search & Category Tabs
-// ==========================================
-const skillSearchInput = document.getElementById('skillSearchInput');
-const clearSkillSearch = document.getElementById('clearSkillSearch');
-const skillSearchBox = document.querySelector('.skills-search-box');
-const skillTabBtns = document.querySelectorAll('.skill-tab-btn');
-const skillCards = document.querySelectorAll('.skill-card');
-
-function filterSkills() {
-    const query = skillSearchInput ? skillSearchInput.value.toLowerCase().trim() : '';
-    const activeTab = document.querySelector('.skill-tab-btn.active')?.getAttribute('data-category') || 'all';
-
-    if (skillSearchBox) {
-        skillSearchBox.classList.toggle('has-query', query.length > 0);
-    }
-
-    skillCards.forEach(card => {
-        const cardCat = card.getAttribute('data-cat');
-        const cardText = card.textContent.toLowerCase();
-
-        const matchesCategory = (activeTab === 'all' || cardCat === activeTab);
-        const matchesQuery = !query || cardText.includes(query);
-
-        if (matchesCategory && matchesQuery) {
-            card.classList.remove('filtered-out');
-        } else {
-            card.classList.add('filtered-out');
-        }
-    });
-}
-
-if (skillSearchInput) {
-    skillSearchInput.addEventListener('input', filterSkills);
-}
-
-if (clearSkillSearch) {
-    clearSkillSearch.addEventListener('click', () => {
-        sfx.play('click');
-        skillSearchInput.value = '';
-        filterSkills();
-        skillSearchInput.focus();
-    });
-}
-
-skillTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        sfx.play('click');
-        skillTabBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        filterSkills();
-    });
-});
-
-// Animate Skill Bars when Section is in viewport
-const skillsSection = document.getElementById('skills');
-let skillsAnimated = false;
-
-const skillsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && !skillsAnimated) {
-            document.querySelectorAll('.meter-fill').forEach(fill => {
-                const targetW = fill.style.getPropertyValue('--w') || '85%';
-                fill.style.width = targetW;
-            });
-            skillsAnimated = true;
-        }
-    });
-}, { threshold: 0.2 });
-
-if (skillsSection) skillsObserver.observe(skillsSection);
-
-// ==========================================
-// 12. Journey Section Tab Switching
-// ==========================================
-const journeyTabBtns = document.querySelectorAll('.journey-tab-btn');
+// Journey tabs
+const journeyTabs = document.querySelectorAll('.journey-tab-btn');
 const journeyPanes = document.querySelectorAll('.journey-pane');
+journeyTabs.forEach(btn => btn.addEventListener('click', () => {
+    journeyTabs.forEach(b => b.classList.remove('active'));
+    journeyPanes.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('pane-' + btn.dataset.tab)?.classList.add('active');
+}));
 
-journeyTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        sfx.play('click');
-        const target = btn.getAttribute('data-tab');
-
-        journeyTabBtns.forEach(b => b.classList.remove('active'));
-        journeyPanes.forEach(p => p.classList.remove('active'));
-
-        btn.classList.add('active');
-        const pane = document.getElementById(`pane-${target}`);
-        if (pane) pane.classList.add('active');
-    });
-});
-
-// ==========================================
-// 13. Simulated GitHub Contribution Heatmap
-// ==========================================
-const heatmapGrid = document.getElementById('heatmapGrid');
-if (heatmapGrid) {
-    const totalCells = 52 * 7;
-    const levels = ['l-0', 'l-1', 'l-2', 'l-3', 'l-4'];
-    let html = '';
-
-    for (let i = 0; i < totalCells; i++) {
-        // Weighted random for natural git cadence
-        const rand = Math.random();
-        let level = 'l-0';
-        if (rand > 0.45 && rand <= 0.7) level = 'l-1';
-        else if (rand > 0.7 && rand <= 0.85) level = 'l-2';
-        else if (rand > 0.85 && rand <= 0.95) level = 'l-3';
-        else if (rand > 0.95) level = 'l-4';
-
-        html += `<div class="heat-cell ${level}" title="Day ${i + 1}: Active code contributions"></div>`;
-    }
-    heatmapGrid.innerHTML = html;
-}
-
-// ==========================================
-// 14. Interactive Project Details & Sandbox Modal
-// ==========================================
-const projectModalOverlay = document.getElementById('projectModalOverlay');
-const modalClose = document.getElementById('modalClose');
-const modalContent = document.getElementById('modalContent');
-
-// Comprehensive Project Database
+// Verified project details — no simulated values, no invented live metrics
 const projectData = {
     'finance-dashboard': {
+<<<<<<< HEAD
         title: 'Finova Pro — Personal Finance Platform',
         subtitle: 'Full-Stack Personal Finance, Analytics & Forecasting Engine',
         img: 'assets/images/finance_dashboard.jpg',
@@ -751,10 +407,45 @@ const projectData = {
             'Booking history management with status tracking and ticket retrieval',
             'Secure JWT authentication and RESTful API endpoints on Node.js & Express'
         ],
+=======
+        title: 'Finova Pro — Personal Finance Dashboard',
+        subtitle: 'Full-stack personal finance application',
+        desc: 'A full-stack personal finance application for income and expense tracking, budgets, savings goals, subscriptions, visual insights, CSV export, JSON backup/restore, authentication, and WebSocket-based updates.',
+        features: ['JWT authentication with bcryptjs', 'Transactions, budgets, savings goals and subscriptions', 'Chart.js financial visualizations', 'CSV export and JSON backup/restore', 'WebSocket communication', 'Node.js + Express backend'],
+        github: 'https://github.com/shivamsharmakr04/finance-Dashboard'
+    },
+    'student-dashboard': {
+        title: 'Student Dashboard',
+        subtitle: 'Next.js + Supabase student management dashboard',
+        desc: 'A full-stack student management dashboard with authenticated accounts, course progress, assignments, schedules, analytics, profile management and realtime data synchronization.',
+        features: ['Next.js, React and TypeScript', 'Supabase Authentication', 'Supabase PostgreSQL, Realtime and Row Level Security', 'Express REST API', 'Courses, assignments, schedule and analytics modules', 'Responsive Tailwind CSS interface'],
+        github: 'https://github.com/shivamsharmakr04/Student-Dashboard'
+    },
+    'certificate-verification': {
+        title: 'CertiVerify — Certificate Verification Platform',
+        subtitle: 'Certificate issuance and verification workflow',
+        desc: 'A full-stack certificate verification system supporting unique certificate IDs, OCR-assisted image verification, student/admin portals, file ingestion, verification logs and PDF certificate generation.',
+        features: ['React + Vite frontend', 'Node.js + Express backend', 'MongoDB + Mongoose', 'JWT + bcrypt authentication', 'Tesseract.js OCR integration', 'PDF and spreadsheet/file processing'],
+        github: 'https://github.com/shivamsharmakr04/Certificate-verification-system'
+    },
+    'job-portal': {
+        title: 'Job Listing Platform',
+        subtitle: 'Full-stack recruitment portal',
+        desc: 'A full-stack job portal supporting candidate authentication, job discovery, job posting, applications, candidate profiles, resume uploads and employer/admin workflows.',
+        features: ['React + Vite frontend', 'Node.js + Express backend', 'MongoDB + Mongoose', 'JWT authentication', 'Resume/file upload handling with Multer', 'Job search, posting and application workflows'],
+        github: 'https://github.com/shivamsharmakr04/job-listing-app'
+    },
+    'flight-booking': {
+        title: 'Flight Booker',
+        subtitle: 'Full-stack flight reservation application',
+        desc: 'A flight reservation application covering search and filtering, interactive seat selection, passenger management, checkout flow, booking history, digital boarding passes and PDF ticket generation.',
+        features: ['React + Vite frontend', 'Node.js + Express backend', 'Tailwind CSS responsive UI', 'JWT authentication', 'PDF ticket generation with PDFKit', 'Booking and passenger workflow'],
+>>>>>>> fd8285b3e3281b64d4d43fd98ce085782cc86cfa
         github: 'https://github.com/shivamsharmakr04/flight-booker'
     },
     'ibvap': {
         title: 'IBVAP — Intelligent Border Video Analytics Platform',
+<<<<<<< HEAD
         subtitle: 'Real-time Operator Console & FastAPI Video Analytics Prototype',
         img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=500&fit=crop',
         desc: 'A React/Vite operator console paired with a FastAPI backend for intelligent video analytics. Features camera grid monitors, zone definition, automated event detection, real-time alert delivery via WebSockets, and health monitoring.',
@@ -875,350 +566,185 @@ function renderSandbox(type) {
     }
     return '';
 }
+=======
+        subtitle: 'Security-monitoring command-center prototype',
+        desc: 'A full-stack prototype combining a React/Vite operator interface with a FastAPI backend for camera management, zones, events, alerts, watchlists, dashboard data, media handling and realtime alert delivery.',
+        features: ['React 18 + Vite frontend', 'FastAPI + Uvicorn backend', 'SQLAlchemy and Alembic', 'PostgreSQL / SQLite development architecture', 'WebSocket alert channel', 'Docker Compose support for PostgreSQL'],
+        github: 'https://github.com/shivamsharmakr04/IBVAP'
+    },
+    'elementum': {
+        title: 'Elementum — AI & Digital Product Studio',
+        subtitle: 'Interactive React/Vite frontend project',
+        desc: 'A self-contained frontend project demonstrating a modern digital-product studio experience with responsive UI, portfolio exploration, service presentation, project estimation, inquiry flow, testimonials and FAQs.',
+        features: ['React 19 + Vite 8', 'Tailwind CSS 4', 'Framer Motion', 'Lucide React + React Icons', 'Responsive UI and micro-interactions', 'No required backend or database'],
+        github: 'https://github.com/shivamsharmakr04/Elementum'
+    }
+};
+
+const modalOverlay = document.getElementById('projectModalOverlay');
+const modalContent = document.getElementById('modalContent');
+const modalClose = document.getElementById('modalClose');
+>>>>>>> fd8285b3e3281b64d4d43fd98ce085782cc86cfa
 
 function openProjectModal(id) {
-    sfx.play('pop');
     const data = projectData[id];
-    if (!data || !modalContent || !projectModalOverlay) return;
-
+    if (!data || !modalOverlay || !modalContent) return;
     modalContent.innerHTML = `
-        <img src="${data.img}" alt="${data.title}" class="modal-header-img" onerror="this.src='Profile.jpeg'">
-        <h2 class="modal-title">${data.title}</h2>
-        <span class="modal-subtitle">${data.subtitle}</span>
-        <p class="modal-desc">${data.desc}</p>
-        
-        ${data.isSandbox ? renderSandbox(data.type) : ''}
-
-        <div class="modal-features-list">
-            <h4><i class="fas fa-star text-warning"></i> Key Architecture & Features:</h4>
-            <ul>
-                ${data.features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}
-            </ul>
-        </div>
-
-        <div class="modal-actions-row">
-            <a href="${data.github}" target="_blank" rel="noopener" class="btn btn-primary">
-                <i class="fab fa-github"></i> Inspect Source Code
-            </a>
-            <button class="btn btn-secondary" onclick="closeProjectModal()">
-                <i class="fas fa-times"></i> Close Modal
-            </button>
-        </div>
-    `;
-
-    // Attach listeners for interactive sandbox widgets
-    if (data.type === 'finance') {
-        const tfBtns = modalContent.querySelectorAll('.tf-btn');
-        const netWorth = modalContent.querySelector('#finNetWorth');
-        const finReturn = modalContent.querySelector('#finReturn');
-        const chartLine = modalContent.querySelector('#chartLine');
-        const chartArea = modalContent.querySelector('#chartArea');
-
-        const chartPaths = {
-            '1d': { dLine: 'M 0 110 Q 120 70 240 90 T 380 50 T 500 30', dArea: 'M 0 110 Q 120 70 240 90 T 380 50 T 500 30 L 500 140 L 0 140 Z', val: '$148,250.00', ret: '+1.95% (+$2,840)' },
-            '1w': { dLine: 'M 0 100 Q 80 50 160 80 T 320 40 T 500 20', dArea: 'M 0 100 Q 80 50 160 80 T 320 40 T 500 20 L 500 140 L 0 140 Z', val: '$148,250.00', ret: '+8.40% (+$12,180)' },
-            '1m': { dLine: 'M 0 120 Q 90 90 200 60 T 350 30 T 500 10', dArea: 'M 0 120 Q 90 90 200 60 T 350 30 T 500 10 L 500 140 L 0 140 Z', val: '$153,400.00', ret: '+14.20% (+$19,050)' },
-            '1y': { dLine: 'M 0 130 Q 100 100 220 80 T 360 40 T 500 5', dArea: 'M 0 130 Q 100 100 220 80 T 360 40 T 500 5 L 500 140 L 0 140 Z', val: '$162,800.00', ret: '+32.80% (+$40,250)' }
-        };
-
-        tfBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                sfx.play('click');
-                tfBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const tf = btn.getAttribute('data-tf');
-                if (chartPaths[tf]) {
-                    netWorth.textContent = chartPaths[tf].val;
-                    finReturn.textContent = chartPaths[tf].ret;
-                    chartLine.setAttribute('d', chartPaths[tf].dLine);
-                    chartArea.setAttribute('d', chartPaths[tf].dArea);
-                }
-            });
-        });
-    } else if (data.type === 'student') {
-        const quizSlider = modalContent.querySelector('#quizSlider');
-        const projSlider = modalContent.querySelector('#projSlider');
-        const quizVal = modalContent.querySelector('#quizVal');
-        const projVal = modalContent.querySelector('#projVal');
-        const gpaResult = modalContent.querySelector('#gpaResult');
-
-        function updateGPA() {
-            const q = parseInt(quizSlider.value);
-            const p = parseInt(projSlider.value);
-            quizVal.textContent = q + '%';
-            projVal.textContent = p + '%';
-            const avg = (q * 0.4 + p * 0.6);
-            let gpa = (avg / 100 * 4.0).toFixed(2);
-            let grade = 'A';
-            if (gpa < 3.0) grade = 'B';
-            if (gpa < 2.0) grade = 'C';
-            gpaResult.textContent = `${gpa} / 4.00 (Grade: ${grade})`;
-        }
-
-        if (quizSlider) quizSlider.addEventListener('input', updateGPA);
-        if (projSlider) projSlider.addEventListener('input', updateGPA);
-
-        const coursePills = modalContent.querySelectorAll('.course-tab-pill');
-        coursePills.forEach(pill => {
-            pill.addEventListener('click', () => {
-                sfx.play('click');
-                coursePills.forEach(p => p.classList.remove('active'));
-                pill.classList.add('active');
-            });
-        });
-    }
-
-    projectModalOverlay.classList.add('active');
+        <div class="modal-content">
+            <h2 class="modal-title">${data.title}</h2>
+            <span class="modal-subtitle">${data.subtitle}</span>
+            <p class="modal-desc">${data.desc}</p>
+            <div class="modal-features-list">
+                <h4><i class="fas fa-check-circle text-success"></i> Verified features</h4>
+                <ul>${data.features.map(item => `<li><i class="fas fa-check-circle"></i> ${item}</li>`).join('')}</ul>
+            </div>
+            <div class="modal-actions-row">
+                <a class="btn btn-primary" href="${data.github}" target="_blank" rel="noopener"><i class="fab fa-github"></i> View GitHub Repository</a>
+                <button class="btn btn-secondary" onclick="closeProjectModal()"><i class="fas fa-times"></i> Close</button>
+            </div>
+        </div>`;
+    modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
-}
-
-function closeProjectModal() {
-    sfx.play('click');
-    if (projectModalOverlay) {
-        projectModalOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-if (modalClose) modalClose.addEventListener('click', closeProjectModal);
-if (projectModalOverlay) {
-    projectModalOverlay.addEventListener('click', (e) => {
-        if (e.target === projectModalOverlay) closeProjectModal();
-    });
-}
-
-// Attach modal openers to all action triggers
-document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.project-details-btn') || e.target.closest('.sandbox-trigger-btn');
-    if (btn) {
-        e.preventDefault();
-        const pid = btn.getAttribute('data-project-id');
-        if (pid) openProjectModal(pid);
-    }
-});
-
-// ==========================================
-// 15. Command Palette (Ctrl + K / Cmd + K)
-// ==========================================
-const cmdPaletteOverlay = document.getElementById('cmdPaletteOverlay');
-const cmdPaletteBtn = document.getElementById('cmdPaletteBtn');
-const cmdPaletteClose = document.getElementById('cmdPaletteClose');
-const cmdPaletteInput = document.getElementById('cmdPaletteInput');
-const cmdPaletteResults = document.getElementById('cmdPaletteResults');
-
-function openCmdPalette() {
     sfx.play('pop');
-    if (!cmdPaletteOverlay) return;
-    cmdPaletteOverlay.classList.add('active');
-    if (cmdPaletteInput) {
-        cmdPaletteInput.value = '';
-        cmdPaletteInput.focus();
-        filterCmdItems('');
-    }
-    document.body.style.overflow = 'hidden';
 }
-
-function closeCmdPalette() {
-    sfx.play('click');
-    if (!cmdPaletteOverlay) return;
-    cmdPaletteOverlay.classList.remove('active');
+function closeProjectModal() {
+    modalOverlay?.classList.remove('active');
     document.body.style.overflow = '';
 }
-
-if (cmdPaletteBtn) cmdPaletteBtn.addEventListener('click', openCmdPalette);
-if (cmdPaletteClose) cmdPaletteClose.addEventListener('click', closeCmdPalette);
-if (cmdPaletteOverlay) {
-    cmdPaletteOverlay.addEventListener('click', (e) => {
-        if (e.target === cmdPaletteOverlay) closeCmdPalette();
-    });
-}
-
-// Global Keyboard shortcut listener
-window.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+if (modalClose) modalClose.addEventListener('click', closeProjectModal);
+modalOverlay?.addEventListener('click', e => { if (e.target === modalOverlay) closeProjectModal(); });
+document.addEventListener('click', e => {
+    const trigger = e.target.closest('.project-details-btn');
+    if (trigger?.dataset.projectId) {
         e.preventDefault();
-        if (cmdPaletteOverlay && cmdPaletteOverlay.classList.contains('active')) {
-            closeCmdPalette();
-        } else {
-            openCmdPalette();
-        }
-    }
-    if (e.key === 'Escape') {
-        if (cmdPaletteOverlay && cmdPaletteOverlay.classList.contains('active')) closeCmdPalette();
-        if (projectModalOverlay && projectModalOverlay.classList.contains('active')) closeProjectModal();
+        openProjectModal(trigger.dataset.projectId);
     }
 });
 
-function filterCmdItems(query) {
-    const q = query.toLowerCase().trim();
-    const items = cmdPaletteResults ? cmdPaletteResults.querySelectorAll('.cmd-item') : [];
-    items.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        if (!q || text.includes(q)) {
-            item.style.display = 'flex';
-        } else {
-            item.style.display = 'none';
-        }
+// Command palette
+const cmdOverlay = document.getElementById('cmdPaletteOverlay');
+const cmdButton = document.getElementById('cmdPaletteBtn');
+const cmdClose = document.getElementById('cmdPaletteClose');
+const cmdInput = document.getElementById('cmdPaletteInput');
+const cmdResults = document.getElementById('cmdPaletteResults');
+function openCmdPalette() {
+    cmdOverlay?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (cmdInput) { cmdInput.value = ''; filterCommands(''); cmdInput.focus(); }
+}
+function closeCmdPalette() {
+    cmdOverlay?.classList.remove('active');
+    document.body.style.overflow = '';
+}
+function filterCommands(q) {
+    cmdResults?.querySelectorAll('.cmd-item').forEach(item => {
+        item.style.display = !q || item.textContent.toLowerCase().includes(q.toLowerCase()) ? 'flex' : 'none';
     });
 }
+if (cmdButton) cmdButton.addEventListener('click', openCmdPalette);
+if (cmdClose) cmdClose.addEventListener('click', closeCmdPalette);
+if (cmdInput) cmdInput.addEventListener('input', e => filterCommands(e.target.value));
+cmdOverlay?.addEventListener('click', e => { if (e.target === cmdOverlay) closeCmdPalette(); });
+document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openCmdPalette(); }
+    if (e.key === 'Escape') { closeCmdPalette(); closeProjectModal(); }
+});
+cmdResults?.addEventListener('click', e => {
+    const item = e.target.closest('.cmd-item');
+    if (!item) return;
+    closeCmdPalette();
+    const action = item.dataset.action;
+    if (action === 'goto') document.querySelector(item.dataset.target)?.scrollIntoView({behavior:'smooth'});
+    if (action === 'resume') window.open('Shivam_Kumar_Resume.pdf', '_blank');
+    if (action === 'copy-email') navigator.clipboard?.writeText('shivamsharmakr04@gmail.com').then(() => showToast('Email copied', 'fas fa-check-circle'));
+    if (action === 'toggle-theme') {
+        const keys = Object.keys(themeNames);
+        const current = document.documentElement.dataset.theme || 'cyber';
+        setTheme(keys[(keys.indexOf(current) + 1) % keys.length]);
+    }
+});
 
-if (cmdPaletteInput) {
-    cmdPaletteInput.addEventListener('input', (e) => filterCmdItems(e.target.value));
-}
-
-// Execute Command Item Actions
-if (cmdPaletteResults) {
-    cmdPaletteResults.addEventListener('click', (e) => {
-        const item = e.target.closest('.cmd-item');
-        if (!item) return;
-        const action = item.getAttribute('data-action');
-        closeCmdPalette();
-
-        if (action === 'goto') {
-            const target = item.getAttribute('data-target');
-            const el = document.querySelector(target);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-        } else if (action === 'sandbox') {
-            const project = item.getAttribute('data-project');
-            openProjectModal(project);
-        } else if (action === 'resume') {
-            window.open('Shivam_Kumar_Resume.pdf', '_blank');
-            showToast('Opening Shivam Kumar Resume...', 'fas fa-file-pdf');
-        } else if (action === 'copy-email') {
-            navigator.clipboard.writeText('shivamsharmakr04@gmail.com');
-            showToast('Email copied to clipboard: shivamsharmakr04@gmail.com', 'fas fa-check-circle');
-        } else if (action === 'toggle-theme') {
-            const keys = Object.keys(themeNames);
-            const current = document.documentElement.getAttribute('data-theme') || 'cyber';
-            const next = keys[(keys.indexOf(current) + 1) % keys.length];
-            setTheme(next);
-            showToast(`Theme switched to ${themeNames[next]}`, 'fas fa-palette');
-        }
-    });
-}
-
-// ==========================================
-// 16. Toast Notifications Engine
-// ==========================================
-const toastContainer = document.getElementById('toastContainer');
-
-function showToast(message, icon = 'fas fa-info-circle') {
-    if (!toastContainer) return;
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerHTML = `<i class="${icon}"></i> <span>${message}</span>`;
-    toastContainer.appendChild(toast);
-
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(20px)';
-        toast.style.transition = 'all 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-    }, 3200);
-}
-
-// ==========================================
-// 17. Copy to Clipboard Quick Helpers
-// ==========================================
-const copyBtns = document.querySelectorAll('.copy-btn');
-copyBtns.forEach(btn => {
+// Copy helpers
+document.querySelectorAll('.copy-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        const textToCopy = btn.getAttribute('data-copy');
-        if (textToCopy) {
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                sfx.play('success');
-                showToast(`Copied to clipboard: ${textToCopy}`, 'fas fa-check-circle');
-            }).catch(() => {
-                showToast('Failed to copy text', 'fas fa-exclamation-circle');
-            });
-        }
+        const value = btn.dataset.copy;
+        if (!value) return;
+        navigator.clipboard?.writeText(value).then(() => showToast('Copied', 'fas fa-check-circle'));
     });
 });
 
-// ==========================================
-// 18. Intersection Observer for Scroll Animations
-// ==========================================
-const scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.animate-on-scroll').forEach(el => scrollObserver.observe(el));
-
-// ==========================================
-// 19. Animated Stats Numbers Counter
-// ==========================================
-const statNumbers = document.querySelectorAll('.stat-number');
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const target = parseInt(entry.target.getAttribute('data-target'));
-            let current = 0;
-            const step = Math.max(1, Math.ceil(target / 45));
-            const timer = setInterval(() => {
-                current += step;
-                if (current >= target) {
-                    entry.target.textContent = target + '+';
-                    clearInterval(timer);
-                } else {
-                    entry.target.textContent = current;
-                }
-            }, 30);
-            statsObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.4 });
-
-statNumbers.forEach(stat => statsObserver.observe(stat));
-
-// ==========================================
-// 20. Contact Form Submission (Web3Forms API)
-// ==========================================
+// Contact form: compose a mailto instead of claiming an external delivery result
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
+    contactForm.addEventListener('submit', e => {
         e.preventDefault();
-        const submitBtn = document.getElementById('contactSubmitBtn');
-        const originalHtml = submitBtn.innerHTML;
-
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Transmitting...';
-        submitBtn.disabled = true;
-
-        try {
-            const formData = new FormData(contactForm);
-            formData.append("access_key", "0d1f3610-56a3-4164-9257-c027e4501229");
-
-            const response = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
-                body: formData
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-                sfx.play('success');
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Dispatched!';
-                submitBtn.style.background = 'var(--success)';
-                showToast('Thank you! Your message has been dispatched successfully.', 'fas fa-check-circle');
-                contactForm.reset();
-            } else {
-                submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Delivery Failed';
-                submitBtn.style.background = 'var(--warning)';
-                showToast('Could not send message. Please email directly.', 'fas fa-exclamation-triangle');
-            }
-        } catch (err) {
-            submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
-            submitBtn.style.background = 'var(--warning)';
-            showToast('Network error connecting to mail server.', 'fas fa-exclamation-triangle');
-        }
-
-        setTimeout(() => {
-            submitBtn.innerHTML = originalHtml;
-            submitBtn.style.background = '';
-            submitBtn.disabled = false;
-        }, 3500);
+        const name = document.getElementById('name')?.value.trim() || '';
+        const email = document.getElementById('email')?.value.trim() || '';
+        const subject = document.getElementById('subject')?.value.trim() || 'Portfolio enquiry';
+        const message = document.getElementById('message')?.value.trim() || '';
+        const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+        window.location.href = `mailto:shivamsharmakr04@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        showToast('Opening your email client', 'fas fa-envelope');
     });
 }
+
+// Scroll animations
+const scrollObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+}), {threshold: 0.1, rootMargin: '0px 0px -40px 0px'});
+document.querySelectorAll('.animate-on-scroll').forEach(el => scrollObserver.observe(el));
+
+// Back-to-top button
+const topButton = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => topButton?.classList.toggle('visible', scrollY > 450), {passive:true});
+topButton?.addEventListener('click', () => scrollTo({top:0, behavior:'smooth'}));
+
+function showToast(message, icon = 'fas fa-info-circle') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `<i class="${icon}"></i><span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 2800);
+}
+
+// Keep this helper for the existing terminal UI, but use only verified portfolio commands.
+const terminalOutput = document.getElementById('terminalOutput');
+const terminalForm = document.getElementById('terminalForm');
+const terminalInput = document.getElementById('terminalInput');
+const terminalCommands = {
+    help: 'Commands: projects, skills, about, contact, resume, clear',
+    projects: '7 verified GitHub projects: Finova Pro, Student Dashboard, CertiVerify, Job Listing Platform, Flight Booker, IBVAP, Elementum.',
+    skills: 'React, Next.js, TypeScript, JavaScript, Node.js, Express, Python/FastAPI, MongoDB, PostgreSQL, Supabase, Tailwind CSS, REST APIs, WebSockets.',
+    about: 'Shivam Kumar — Full-Stack Developer.',
+    contact: 'Email: shivamsharmakr04@gmail.com | Location: Dehradun, India',
+    resume: 'Opening resume…',
+    clear: ''
+};
+function runCommand(raw) {
+    const cmd = raw.trim().toLowerCase();
+    if (!cmd || !terminalOutput) return;
+    if (cmd === 'resume') { window.open('Shivam_Kumar_Resume.pdf', '_blank'); return; }
+    if (cmd === 'clear') { terminalOutput.innerHTML = ''; return; }
+    if (projectData[cmd]) { openProjectModal(cmd); return; }
+    const result = terminalCommands[cmd] || `Command not found: "${cmd}". Type help.`;
+    const line = document.createElement('div');
+    line.className = 'term-line';
+    line.innerHTML = `<span class="terminal-prompt">shivam@portfolio:~$</span> ${cmd}<br><span class="term-res">${result}</span>`;
+    terminalOutput.appendChild(line);
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
+if (terminalForm && terminalInput) terminalForm.addEventListener('submit', e => {
+    e.preventDefault(); runCommand(terminalInput.value); terminalInput.value = '';
+});
+document.querySelectorAll('.term-btn').forEach(btn => btn.addEventListener('click', () => runCommand(btn.dataset.cmd)));
+
+// Smooth anchor links
+document.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href && href.length > 1 && document.querySelector(href)) {
+        e.preventDefault();
+        document.querySelector(href).scrollIntoView({behavior:'smooth'});
+    }
+}));
