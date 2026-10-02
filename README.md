@@ -2,9 +2,9 @@
 
 > A modern, interactive developer portfolio built with **HTML5, CSS3, and Vanilla JavaScript** to present projects, technical skills, experience, and professional contact information.
 
-[![Live Portfolio](https://img.shields.io/badge/Portfolio-Live-111827?style=for-the-badge&logo=vercel&logoColor=white)](https://github.com/shivamsharmakr04/Personal-Portfolio)
+[![Live Portfolio](https://img.shields.io/badge/Portfolio-Live-111827?style=for-the-badge&logo=vercel&logoColor=white)](https://personal-portfolio-three-wheat-58.vercel.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-shivamsharmakr04-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/shivamsharmakr04)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Shivam%20Kumar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/shivam-kumar-b0aab2209)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Shivam%20Kumar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shivam-sharmakr/)
 
 ---
 
@@ -138,9 +138,12 @@ I work across frontend and backend development, with hands-on experience buildin
 
 ### Connect
 
-- GitHub: https://github.com/shivamsharmakr04
-- LinkedIn: https://linkedin.com/in/shivam-kumar-b0aab2209
-- Portfolio Repository: https://github.com/shivamsharmakr04/Personal-Portfolio
+- **Portfolio**: https://personal-portfolio-three-wheat-58.vercel.app/
+- **GitHub**: https://github.com/shivamsharmakr04
+- **LinkedIn**: https://www.linkedin.com/in/shivam-sharmakr/
+- **Email**: shivamsharmakr04@gmail.com
+- **Phone**: +91 9771050501
+- **Location**: Dehradun, Uttarakhand, India
 
 ---
 

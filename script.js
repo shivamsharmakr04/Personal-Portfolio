@@ -438,13 +438,14 @@ const terminalOutput = document.getElementById('terminalOutput');
 const termBtns = document.querySelectorAll('.term-btn');
 
 const terminalCommands = {
-    help: 'Commands: <span class="term-cmd">finance</span>, <span class="term-cmd">student</span>, <span class="term-cmd">skills</span>, <span class="term-cmd">projects</span>, <span class="term-cmd">contact</span>, <span class="term-cmd">about</span>, <span class="term-cmd">resume</span>, <span class="term-cmd">theme [name]</span>, <span class="term-cmd">clear</span>',
+    help: 'Commands: <span class="term-cmd">finance</span>, <span class="term-cmd">student</span>, <span class="term-cmd">skills</span>, <span class="term-cmd">projects</span>, <span class="term-cmd">education</span>, <span class="term-cmd">contact</span>, <span class="term-cmd">about</span>, <span class="term-cmd">resume</span>, <span class="term-cmd">theme [name]</span>, <span class="term-cmd">clear</span>',
     finance: 'LAUNCH_FINANCE',
     student: 'LAUNCH_STUDENT',
-    skills: '⚡ Core Stack: React.js, Next.js, Node.js, Python, TypeScript, MongoDB, PostgreSQL, D3.js, Docker, AWS, AI Integrations',
-    projects: '🚀 Featured: (1) FinPulse Analytics Dashboard, (2) EduSphere LMS Student Portal, (3) HireSphere Job Portal, (4) AeroQuest Booking',
-    contact: '📧 shivamsharmakr04@gmail.com | 📞 +91 9771050501 | 📍 Dehradun, India',
-    about: '👨‍💻 Shivam Kumar — Full Stack Developer dedicated to crafting high-performance, pixel-perfect web apps and dashboards.',
+    skills: '⚡ Core Stack: React.js, Next.js, Node.js, TypeScript, Python, Express.js, MongoDB, PostgreSQL, Supabase, REST APIs, Tailwind CSS',
+    projects: '🚀 Featured: (1) Finova Pro Personal Finance, (2) Student Dashboard, (3) CertiVerify OCR Verification, (4) Job Listing Platform, (5) Flight Booker, (6) IBVAP Video Analytics',
+    education: '🎓 B.Tech in CSE (Uttarakhand Technical University, 2024-2027) | Diploma in CSE (State Board of Tech University, Bihar, 2020-2023) | 🏆 Best Student of the Dept (2023)',
+    contact: '📧 shivamsharmakr04@gmail.com | 📞 +91 9771050501 | 📍 Dehradun, Uttarakhand, India | 💼 in/shivam-sharmakr',
+    about: '👨‍💻 Shivam Kumar — Full Stack Developer dedicated to crafting responsive, high-performance web apps, REST APIs, and interactive dashboards.',
     resume: 'DOWNLOAD_RESUME',
     whoami: '👋 Hello Explorer! Welcome to Shivam Kumar\'s developer workstation.',
     date: () => `📅 Current Time: ${new Date().toLocaleString()}`,
@@ -674,99 +675,112 @@ const modalContent = document.getElementById('modalContent');
 // Comprehensive Project Database
 const projectData = {
     'finance-dashboard': {
-        title: 'FinPulse — AI Finance & Portfolio Analytics Dashboard',
-        subtitle: 'Real-time Stock/Crypto Analytics, AI Forecasting & Wealth Monitoring',
+        title: 'Finova Pro — Personal Finance Platform',
+        subtitle: 'Full-Stack Personal Finance, Analytics & Forecasting Engine',
         img: 'assets/images/finance_dashboard.jpg',
-        desc: 'FinPulse is an enterprise-grade dark mode financial dashboard built to provide active traders and investors with instant market clarity. Featuring high-frequency tick simulation, automated risk scoring, multi-asset portfolio breakdown, and predictive machine learning models.',
+        desc: 'Finova Pro is a comprehensive personal finance application covering income and expense transactions, budget planning, savings goals, recurring subscriptions, user authentication, financial analytics, data exports, and forecasting.',
         isSandbox: true,
         type: 'finance',
         features: [
-            'Dynamic candlestick & sparkline charts powered by Chart.js & D3',
-            'Python ML model integration for trend projection & momentum scoring',
-            'Live ticker simulation for Crypto (BTC, ETH, SOL) and Tech Equities',
-            'Asset allocation breakdown with real-time profit & loss tracker',
-            'Automated PDF/CSV financial summary report generation',
-            'Full mobile responsive layout with touch-friendly chart scrubbers'
+            'Dynamic financial charts powered by Chart.js and Node.js REST API',
+            'Transaction management with categories, income/expense breakdown, and search',
+            'Budget tracking and savings goals with automated progress indicators',
+            'Subscription monitoring and recurring bill alerts',
+            'Secure user authentication with JWT, bcrypt password hashing, and role checks',
+            'CSV/PDF summary export workflows and automated financial forecasting'
         ],
-        github: 'https://github.com/himanshu9771/finance-Dashboard'
+        github: 'https://github.com/shivamsharmakr04/finance-Dashboard'
     },
     'student-dashboard': {
-        title: 'EduSphere — AI Student Management & LMS Portal',
-        subtitle: 'Intelligent Academic Portal, GPA Calculator & Course Lifecycle Manager',
+        title: 'Student Dashboard — LMS & Academic Management',
+        subtitle: 'Modern Student-Focused Platform with Realtime Sync & RLS',
         img: 'assets/images/student_dashboard.jpg',
-        desc: 'EduSphere is a student-centric learning platform engineered for modern universities. It combines course progression monitors, an interactive GPA scenario modeling tool, upcoming assignment deadlines, lecture materials hub, and automated grade analytics.',
+        desc: 'A modern student-focused learning platform and dashboard built with Next.js and TypeScript, integrating Supabase Realtime, Row Level Security (RLS), and an Express API for course tracking, assignments, and GPA scenarios.',
         isSandbox: true,
         type: 'student',
         features: [
-            'Interactive GPA Scenario Calculator: adjust test scores & visualize target GPA',
-            'Course progress meters for Data Structures, Web Dev, UI/UX, and AI/ML',
-            'Assignment priority checklist with status toggle and countdown timers',
-            'Grade distribution analytics across semesters with progress indicators',
-            'Clean modern dark mode UI built with Next.js 14 and Tailwind CSS',
-            'Responsive student dashboard accessible on smartphones, tablets, & laptops'
+            'Interactive GPA scenario calculator to model quiz, exam, and project outcomes',
+            'Course progression monitors across enrolled technical subjects',
+            'Assignment priority checklist with status toggle and deadline alerts',
+            'Realtime student data synchronization powered by Supabase Realtime & RLS',
+            'Modern responsive UI engineered with Next.js 14, TypeScript, and Tailwind CSS',
+            'Express backend API integration supporting academic analytics workflows'
         ],
-        github: 'https://github.com/shivamsharmakr04'
-    },
-    'job-portal': {
-        title: 'HireSphere — AI Job Portal Platform',
-        subtitle: 'End-to-End Recruitment Engine with AI Candidate Matching',
-        img: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop',
-        desc: 'A full-stack recruitment portal connecting engineering talent with top employers. Features automated resume parsing, AI candidate-to-job match ranking, real-time socket chat, and an intuitive applicant tracking system.',
-        features: [
-            'AI-assisted resume screening and candidate compatibility rating',
-            'Real-time application status notifications & chat via Socket.io',
-            'Dedicated recruiter dashboard with candidate pipeline analytics',
-            'Role-based authentication with JWT and secure password hashing'
-        ],
-        github: 'https://github.com/himanshu9771/job-listing-app'
-    },
-    'flight-booking': {
-        title: 'AeroQuest — Flight Reservation Engine',
-        subtitle: 'Full-Stack Travel Booking & Seat Map Selector',
-        img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=500&fit=crop',
-        desc: 'A production-grade flight reservation platform with real-time seat availability, dynamic route pricing, multi-city flights search, and Stripe payment gateway.',
-        features: [
-            'Interactive SVG aircraft seat map with live selection',
-            'Redis caching layer for sub-20ms flight inventory lookups',
-            'Stripe payment gateway integration with webhooks verification',
-            'Automated PDF e-ticket generation and email dispatch'
-        ],
-        github: 'https://github.com/himanshu9771/flight-booker'
+        github: 'https://github.com/shivamsharmakr04/Student-Dashboard'
     },
     'certificate-verification': {
-        title: 'BlockCert — Decentralized Certificate Ledger',
-        subtitle: 'Cryptographic Credential Validation on Blockchain',
+        title: 'CertiVerify — Certificate Verification & Fraud Detection',
+        subtitle: 'OCR-Assisted Credential Verification with Student & Admin Portals',
         img: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=500&fit=crop',
-        desc: 'Prevents credential falsification by hashing verified diplomas onto decentralized ledgers. Offers instant employer verification via camera QR code scanning or hash lookup.',
+        desc: 'A full-stack certificate verification platform designed to prevent credential fraud. Features student and admin portals, unique certificate IDs, authentication, document processing, OCR-assisted certificate inspection using Tesseract.js, and verification analytics.',
         features: [
-            'Cryptographic SHA-256 hash generation with IPFS decentralized storage',
-            'Instant camera QR verification for employers & verification portals',
-            'University admin interface for bulk certificate generation',
-            'Zero gas-fee verification access for public verifiers'
+            'OCR-assisted credential inspection extracting certificate metadata via Tesseract.js',
+            'Public verification portal validating certificates by unique certificate ID',
+            'Role-based access control with secure JWT authentication for students and admins',
+            'Automated PDF certificate generation and secure download workflows',
+            'Comprehensive audit logs and verification analytics dashboard',
+            'Robust REST APIs built on Node.js, Express.js, and MongoDB'
         ],
-        github: 'https://github.com/himanshu9771/Certificate-verification-system'
+        github: 'https://github.com/shivamsharmakr04/Certificate-verification-system'
     },
-    'ai-code-assistant': {
-        title: 'DevPilot — Intelligent Code Synthesis',
-        subtitle: 'AI Developer Companion & Prompt-to-Component Tool',
-        img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=500&fit=crop',
-        desc: 'An AI developer tool integrating OpenAI LLMs to generate clean, testable React components, optimize SQL queries, and synthesize unit tests from plain English prompts.',
+    'job-listing-app': {
+        title: 'Job Listing Platform — Full-Stack Recruitment Portal',
+        subtitle: 'Role-Based Authentication, Resume Uploads & Application Pipelines',
+        img: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop',
+        desc: 'A full-stack job platform supporting candidate/admin authentication, job search and filtering, application tracking, user profiles, and resume/file upload workflows. Designed RESTful API workflows connecting the React frontend with Node.js/Express backend services.',
         features: [
-            'Prompt-to-React component generation with live preview sandbox',
-            'Automated Jest and PyTest unit test synthesis',
-            'AST-based code refactoring and performance recommendations',
-            'WebSocket-powered real-time code streaming'
+            'Dedicated candidate and employer/admin workflows with JWT authentication',
+            'Multi-filter job search by keyword, location, salary, experience, and category',
+            'Resume and document upload management with secure file handling',
+            'Application status tracking and candidate management pipeline for recruiters',
+            'RESTful API architecture built with Express.js, Node.js, and MongoDB',
+            'Responsive mobile-first user interface built with React.js and Vite'
         ],
-        github: 'https://github.com/shivamsharmakr04'
+        github: 'https://github.com/shivamsharmakr04/job-listing-app'
+    },
+    'flight-booker': {
+        title: 'Flight Booker — Airline Reservation Engine',
+        subtitle: 'Full-Stack Travel Booking, Interactive Seat Map & PDF Tickets',
+        img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=500&fit=crop',
+        desc: 'Full-stack flight reservation application featuring flight search and filtering, interactive seat selection, passenger management, checkout flow, wallet workflow, booking history, JWT authentication, and server-side PDF ticket generation.',
+        features: [
+            'Dynamic flight route search with date pickers, price filters, and airline choices',
+            'Interactive SVG aircraft seat map with real-time seat status and selection',
+            'Multi-passenger management and custom wallet/checkout payment simulation',
+            'Server-side automated PDF ticket generation with QR validation using PDFKit',
+            'Booking history management with status tracking and ticket retrieval',
+            'Secure JWT authentication and RESTful API endpoints on Node.js & Express'
+        ],
+        github: 'https://github.com/shivamsharmakr04/flight-booker'
+    },
+    'ibvap': {
+        title: 'IBVAP — Intelligent Border Video Analytics Platform',
+        subtitle: 'Real-time Operator Console & FastAPI Video Analytics Prototype',
+        img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=500&fit=crop',
+        desc: 'A React/Vite operator console paired with a FastAPI backend for intelligent video analytics. Features camera grid monitors, zone definition, automated event detection, real-time alert delivery via WebSockets, and health monitoring.',
+        features: [
+            'Real-time camera feed grid monitoring and zone configuration views',
+            'Automated alert dispatch and event notifications streaming over WebSockets',
+            'Watchlist management and entity tracking operational console',
+            'FastAPI backend with asynchronous event processing and health check endpoints',
+            'PostgreSQL database persistence for event logs, alerts, and system telemetry',
+            'Containerized architecture with Docker for reproducible deployment'
+        ],
+        github: 'https://github.com/shivamsharmakr04/IBVAP'
     }
 };
+
+// Aliases for backwards compatibility with legacy buttons
+projectData['job-portal'] = projectData['job-listing-app'];
+projectData['flight-booking'] = projectData['flight-booker'];
+projectData['ai-code-assistant'] = projectData['ibvap'];
 
 function renderSandbox(type) {
     if (type === 'finance') {
         return `
             <div class="modal-sandbox-container">
                 <div class="sandbox-header">
-                    <span class="sandbox-title"><i class="fas fa-chart-line text-success"></i> FinPulse Live Sandbox Simulation</span>
+                    <span class="sandbox-title"><i class="fas fa-chart-line text-success"></i> Finova Pro Live Sandbox Simulation</span>
                     <div class="sandbox-timeframe-picker">
                         <button class="tf-btn" data-tf="1d">1D</button>
                         <button class="tf-btn active" data-tf="1w">1W</button>
@@ -814,7 +828,7 @@ function renderSandbox(type) {
         return `
             <div class="modal-sandbox-container">
                 <div class="sandbox-header">
-                    <span class="sandbox-title"><i class="fas fa-graduation-cap text-accent"></i> EduSphere LMS Interactive Simulation</span>
+                    <span class="sandbox-title"><i class="fas fa-graduation-cap text-accent"></i> Student Dashboard Interactive Simulation</span>
                     <span class="text-gray" style="font-size: 0.8rem;">Semester: Fall 2026</span>
                 </div>
                 <div class="student-live-preview">
