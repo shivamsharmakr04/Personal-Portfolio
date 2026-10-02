@@ -228,7 +228,7 @@
                                     <i class="fas fa-terminal"></i> terminal
                                 </button>
                                 <button class="code-tab" data-tab="stats">
-                                    <i class="fas fa-heartbeat"></i> live.stat
+                                    <i class="fas fa-heartbeat"></i> profile
                                 </button>
                             </div>
                         </div>
@@ -288,63 +288,31 @@
                             </div>
 
                             <!-- Tab 4: Live Simulated Metrics -->
-                            <div class="tab-content" id="tab-stats">
-                                <div class="live-stats-tab">
-                                    <div class="stat-mini-card">
-                                        <span class="stat-mini-title">Portfolio Status</span>
-                                        <span class="stat-mini-val text-success"><i class="fas fa-circle-check"></i> 100% Operational</span>
-                                    </div>
-                                    <div class="stat-mini-card">
-                                        <span class="stat-mini-title">Client Satisfaction</span>
-                                        <span class="stat-mini-val text-accent"><i class="fas fa-star"></i> 5.0 / 5.0</span>
-                                    </div>
-                                    <div class="stat-mini-card">
-                                        <span class="stat-mini-title">Code Quality</span>
-                                        <span class="stat-mini-val text-primary"><i class="fas fa-shield-alt"></i> Grade A+ (Lighthouse 98)</span>
-                                    </div>
-                                    <div class="stat-mini-card">
-                                        <span class="stat-mini-title">Response Latency</span>
-                                        <span class="stat-mini-val text-warning"><i class="fas fa-bolt"></i> 14ms (Edge Cache)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            </div></div></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- LIVE STATS STRIP -->
+    <!-- VERIFIED PROJECT SNAPSHOT -->
     <section class="stats-strip">
         <div class="stats-container">
             <div class="stat-box">
-                <div class="stat-icon-wrap"><i class="fas fa-cubes"></i></div>
-                <div class="stat-content">
-                    <div class="stat-number" data-target="15">0</div>
-                    <div class="stat-label">Projects Completed</div>
-                </div>
+                <div class="stat-icon-wrap"><i class="fas fa-layer-group"></i></div>
+                <div class="stat-content"><div class="stat-number static-stat">7</div><div class="stat-label">Featured GitHub Projects</div></div>
             </div>
             <div class="stat-box">
-                <div class="stat-icon-wrap"><i class="fas fa-users"></i></div>
-                <div class="stat-content">
-                    <div class="stat-number" data-target="12">0</div>
-                    <div class="stat-label">Happy Clients & Mentors</div>
-                </div>
+                <div class="stat-icon-wrap"><i class="fas fa-code"></i></div>
+                <div class="stat-content"><div class="stat-number static-stat">React + Next.js</div><div class="stat-label">Frontend Stack</div></div>
             </div>
             <div class="stat-box">
-                <div class="stat-icon-wrap"><i class="fas fa-calendar-check"></i></div>
-                <div class="stat-content">
-                    <div class="stat-number" data-target="2">0</div>
-                    <div class="stat-label">Years of Practical Exp.</div>
-                </div>
+                <div class="stat-icon-wrap"><i class="fas fa-server"></i></div>
+                <div class="stat-content"><div class="stat-number static-stat">Node + Express</div><div class="stat-label">Backend Stack</div></div>
             </div>
             <div class="stat-box">
-                <div class="stat-icon-wrap"><i class="fas fa-code-commit"></i></div>
-                <div class="stat-content">
-                    <div class="stat-number" data-target="250">0</div>
-                    <div class="stat-label">GitHub Contributions</div>
-                </div>
+                <div class="stat-icon-wrap"><i class="fas fa-database"></i></div>
+                <div class="stat-content"><div class="stat-number static-stat">MongoDB + PostgreSQL</div><div class="stat-label">Data Technologies</div></div>
             </div>
         </div>
     </section>
@@ -630,278 +598,173 @@
     <section id="projects" class="animate-on-scroll">
         <div class="section-container">
             <div class="section-header">
-                <span class="section-badge"><i class="fas fa-folder-open"></i> Portfolio Showcase</span>
-                <h2 class="section-title">Featured <span>Projects</span></h2>
-                <p class="section-desc">Hand-crafted web applications, interactive enterprise dashboards, and AI solutions</p>
+                <span class="section-badge"><i class="fas fa-folder-open"></i> GitHub Projects</span>
+                <h2 class="section-title">Real <span>Projects</span></h2>
+                <p class="section-desc">Project names, technologies and capabilities are grounded in the repositories on my GitHub account.</p>
             </div>
-
-            <!-- Project Category Filter Pills -->
             <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">
-                    <i class="fas fa-layer-group"></i> All Projects
-                </button>
-                <button class="filter-btn" data-filter="dashboard">
-                    <i class="fas fa-chart-pie"></i> Dashboards & Analytics
-                </button>
-                <button class="filter-btn" data-filter="fullstack">
-                    <i class="fas fa-globe"></i> Full Stack Apps
-                </button>
-                <button class="filter-btn" data-filter="blockchain">
-                    <i class="fas fa-link"></i> Web3 & Blockchain
-                </button>
-                <button class="filter-btn" data-filter="ai">
-                    <i class="fas fa-robot"></i> AI & Smart Tools
-                </button>
+                <button class="filter-btn active" data-filter="all"><i class="fas fa-layer-group"></i> All</button>
+                <button class="filter-btn" data-filter="dashboard"><i class="fas fa-chart-pie"></i> Dashboards</button>
+                <button class="filter-btn" data-filter="fullstack"><i class="fas fa-globe"></i> Full Stack</button>
+                <button class="filter-btn" data-filter="ai"><i class="fas fa-robot"></i> AI / Vision</button>
+                <button class="filter-btn" data-filter="frontend"><i class="fas fa-desktop"></i> Frontend</button>
             </div>
-
-            <!-- Projects Grid -->
             <div class="projects-grid" id="projectsGrid">
                 
-                <!-- Project 1: Finance Analytics Dashboard (FEATURED) -->
                 <div class="project-card tilt-card featured-project" data-category="dashboard" data-project-id="finance-dashboard">
-                    <div class="project-badge-pill">
-                        <i class="fas fa-fire"></i> Featured Project
-                    </div>
+                    <div class="project-badge-pill"><i class="fas fa-star"></i> Featured</div>
                     <div class="project-image-box">
-                        <img src="assets/images/finance_dashboard.jpg" alt="FinPulse - AI Finance Analytics Dashboard" class="project-img" loading="lazy">
+                        <img src="assets/images/finance_dashboard.jpg" alt="Finova Pro — Personal Finance Dashboard" class="project-img" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <button class="p-link-btn sandbox-trigger-btn" data-project-id="finance-dashboard" title="Launch Interactive Live Demo">
-                                    <i class="fas fa-play"></i> Live Interactive Demo
-                                </button>
-                                <button class="p-link-btn project-details-btn" data-project-id="finance-dashboard" title="View Full Specs">
-                                    <i class="fas fa-info-circle"></i> Details
-                                </button>
-                                <a href="https://github.com/himanshu9771/finance-Dashboard" target="_blank" rel="noopener" class="p-link-btn" title="GitHub Repository">
-                                    <i class="fab fa-github"></i>
-                                </a>
+                                <button class="p-link-btn project-details-btn" data-project-id="finance-dashboard" title="View project details"><i class="fas fa-info-circle"></i> Details</button>
+                                <a href="https://github.com/shivamsharmakr04/finance-Dashboard" target="_blank" rel="noopener" class="p-link-btn" title="GitHub repository"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-info">
-                        <div class="project-category-tag">
-                            <i class="fas fa-chart-line"></i> Fintech & Analytics Dashboard
-                        </div>
-                        <h3 class="project-title">FinPulse — AI Finance & Portfolio Dashboard</h3>
-                        <p class="project-desc">
-                            A high-performance financial analytics workstation with interactive crypto & stock price charts, automated portfolio tracking, risk analysis gauges, and predictive market insights.
-                        </p>
-                        <!-- Live Mini Simulation Metrics -->
-                        <div class="project-stats-row">
-                            <div class="p-stat"><span class="p-label">Total Portfolio</span><strong>$148,250.00</strong></div>
-                            <div class="p-stat"><span class="p-label">24h Gain</span><strong class="text-success">+8.4% (+$12,180)</strong></div>
-                            <div class="p-stat"><span class="p-label">Architecture</span><strong>React + D3 + Python</strong></div>
-                        </div>
-                        <div class="project-tech-tags">
-                            <span>React.js</span><span>Chart.js / D3</span><span>Python ML</span><span>Node.js</span><span>PostgreSQL</span>
-                        </div>
+                        <div class="project-category-tag"><i class="fas fa-code-branch"></i> GitHub Repository</div>
+                        <h3 class="project-title">Finova Pro — Personal Finance Dashboard</h3>
+                        <p class="project-desc">Full-stack personal finance app with income/expense tracking, budgets, savings goals, subscriptions, analytics, JSON backup/restore, CSV export and WebSocket updates.</p>
+                        <div class="project-tech-tags"><span>Node.js</span><span>Express.js</span><span>Chart.js</span><span>JWT</span><span>WebSockets</span></div>
                         <div class="project-card-footer">
-                            <button class="btn btn-primary btn-sm sandbox-trigger-btn" data-project-id="finance-dashboard">
-                                <i class="fas fa-chart-simple"></i> Try Live Interactive Sandbox
-                            </button>
-                            <a href="https://github.com/himanshu9771/finance-Dashboard" target="_blank" rel="noopener" class="card-icon-link" title="Source Code">
-                                <i class="fab fa-github"></i>
-                            </a>
+                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="finance-dashboard"><i class="fas fa-info-circle"></i> View Details</button>
+                            <a href="https://github.com/shivamsharmakr04/finance-Dashboard" target="_blank" rel="noopener" class="card-icon-link" title="Source Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Project 2: Student Management & LMS Dashboard (FEATURED) -->
-                <div class="project-card tilt-card featured-project" data-category="dashboard" data-project-id="student-dashboard">
-                    <div class="project-badge-pill student-badge">
-                        <i class="fas fa-graduation-cap"></i> New Project
-                    </div>
+                <div class="project-card tilt-card " data-category="dashboard" data-project-id="student-dashboard">
+                    
                     <div class="project-image-box">
-                        <img src="assets/images/student_dashboard.jpg" alt="EduSphere - AI Student Learning & Management Dashboard" class="project-img" loading="lazy">
+                        <img src="assets/images/student_dashboard.jpg" alt="Student Dashboard" class="project-img" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <button class="p-link-btn sandbox-trigger-btn" data-project-id="student-dashboard" title="Launch Interactive Live Demo">
-                                    <i class="fas fa-play"></i> Live Interactive Demo
-                                </button>
-                                <button class="p-link-btn project-details-btn" data-project-id="student-dashboard" title="View Full Specs">
-                                    <i class="fas fa-info-circle"></i> Details
-                                </button>
-                                <a href="https://github.com/shivamsharmakr04" target="_blank" rel="noopener" class="p-link-btn" title="GitHub Repository">
-                                    <i class="fab fa-github"></i>
-                                </a>
+                                <button class="p-link-btn project-details-btn" data-project-id="student-dashboard" title="View project details"><i class="fas fa-info-circle"></i> Details</button>
+                                <a href="https://github.com/shivamsharmakr04/Student-Dashboard" target="_blank" rel="noopener" class="p-link-btn" title="GitHub repository"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-info">
-                        <div class="project-category-tag">
-                            <i class="fas fa-book-reader"></i> EdTech & Student LMS Portal
-                        </div>
-                        <h3 class="project-title">EduSphere — Student LMS & Academic Dashboard</h3>
-                        <p class="project-desc">
-                            A smart learning management and academic performance tracking portal featuring course progress modules, interactive GPA calculator, assignment deadline trackers, and grade analytics.
-                        </p>
-                        <div class="project-stats-row">
-                            <div class="p-stat"><span class="p-label">Student GPA</span><strong class="text-accent">3.92 / 4.00</strong></div>
-                            <div class="p-stat"><span class="p-label">Course Progress</span><strong class="text-success">78% Completed</strong></div>
-                            <div class="p-stat"><span class="p-label">Features</span><strong>Interactive Calculator</strong></div>
-                        </div>
-                        <div class="project-tech-tags">
-                            <span>Next.js 14</span><span>TypeScript</span><span>Tailwind CSS</span><span>Node.js</span><span>MongoDB</span>
-                        </div>
+                        <div class="project-category-tag"><i class="fas fa-code-branch"></i> GitHub Repository</div>
+                        <h3 class="project-title">Student Dashboard</h3>
+                        <p class="project-desc">Next.js and TypeScript student management dashboard with Supabase Auth, courses, assignments, schedules, analytics, Realtime synchronization and Row Level Security.</p>
+                        <div class="project-tech-tags"><span>Next.js</span><span>TypeScript</span><span>Express</span><span>Supabase</span><span>Tailwind CSS</span></div>
                         <div class="project-card-footer">
-                            <button class="btn btn-primary btn-sm sandbox-trigger-btn" data-project-id="student-dashboard">
-                                <i class="fas fa-graduation-cap"></i> Try Interactive LMS Demo
-                            </button>
-                            <a href="https://github.com/shivamsharmakr04" target="_blank" rel="noopener" class="card-icon-link" title="Source Code">
-                                <i class="fab fa-github"></i>
-                            </a>
+                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="student-dashboard"><i class="fas fa-info-circle"></i> View Details</button>
+                            <a href="https://github.com/shivamsharmakr04/Student-Dashboard" target="_blank" rel="noopener" class="card-icon-link" title="Source Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Project 3: Job Portal Platform -->
-                <div class="project-card tilt-card" data-category="fullstack" data-project-id="job-portal">
+                <div class="project-card tilt-card " data-category="fullstack" data-project-id="certificate-verification">
+                    
                     <div class="project-image-box">
-                        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop" alt="Job Portal Platform" class="project-img" loading="lazy">
+                        <img src="Profile.jpeg" alt="CertiVerify — Certificate Verification Platform" class="project-img" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <button class="p-link-btn project-details-btn" data-project-id="job-portal" title="Details">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                                <a href="https://github.com/himanshu9771/job-listing-app" target="_blank" rel="noopener" class="p-link-btn" title="View Code">
-                                    <i class="fab fa-github"></i>
-                                </a>
+                                <button class="p-link-btn project-details-btn" data-project-id="certificate-verification" title="View project details"><i class="fas fa-info-circle"></i> Details</button>
+                                <a href="https://github.com/shivamsharmakr04/Certificate-verification-system" target="_blank" rel="noopener" class="p-link-btn" title="GitHub repository"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-info">
-                        <div class="project-category-tag">
-                            <i class="fas fa-briefcase"></i> Full Stack Platform
-                        </div>
-                        <h3 class="project-title">HireSphere — AI Job Portal Platform</h3>
-                        <p class="project-desc">
-                            Comprehensive recruitment engine equipped with AI-powered resume matching, real-time candidate notifications, recruiter dashboards, and multi-filter job search.
-                        </p>
-                        <div class="project-tech-tags">
-                            <span>React.js</span><span>Node.js</span><span>MongoDB</span><span>Express</span><span>Socket.io</span>
-                        </div>
+                        <div class="project-category-tag"><i class="fas fa-code-branch"></i> GitHub Repository</div>
+                        <h3 class="project-title">CertiVerify — Certificate Verification Platform</h3>
+                        <p class="project-desc">Full-stack certificate verification platform supporting certificate IDs, OCR-assisted image verification, JWT roles, student/admin portals, file ingestion and PDF certificate generation.</p>
+                        <div class="project-tech-tags"><span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Tesseract.js</span></div>
                         <div class="project-card-footer">
-                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="job-portal">
-                                <i class="fas fa-info-circle"></i> View Architecture
-                            </button>
-                            <a href="https://github.com/himanshu9771/job-listing-app" target="_blank" rel="noopener" class="card-icon-link" title="Source Code">
-                                <i class="fab fa-github"></i>
-                            </a>
+                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="certificate-verification"><i class="fas fa-info-circle"></i> View Details</button>
+                            <a href="https://github.com/shivamsharmakr04/Certificate-verification-system" target="_blank" rel="noopener" class="card-icon-link" title="Source Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Project 4: Flight Booking Reservation System -->
-                <div class="project-card tilt-card" data-category="fullstack" data-project-id="flight-booking">
+                <div class="project-card tilt-card " data-category="fullstack" data-project-id="job-portal">
+                    
                     <div class="project-image-box">
-                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=500&fit=crop" alt="Flight Booking System" class="project-img" loading="lazy">
+                        <img src="Profile.jpeg" alt="Job Listing Platform" class="project-img" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <button class="p-link-btn project-details-btn" data-project-id="flight-booking" title="Details">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                                <a href="https://github.com/himanshu9771/flight-booker" target="_blank" rel="noopener" class="p-link-btn" title="View Code">
-                                    <i class="fab fa-github"></i>
-                                </a>
+                                <button class="p-link-btn project-details-btn" data-project-id="job-portal" title="View project details"><i class="fas fa-info-circle"></i> Details</button>
+                                <a href="https://github.com/shivamsharmakr04/job-listing-app" target="_blank" rel="noopener" class="p-link-btn" title="GitHub repository"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-info">
-                        <div class="project-category-tag">
-                            <i class="fas fa-plane-departure"></i> Travel & Booking Engine
-                        </div>
-                        <h3 class="project-title">AeroQuest — Flight Reservation Engine</h3>
-                        <p class="project-desc">
-                            End-to-end flight booking system featuring interactive aircraft seat maps, dynamic ticket pricing algorithms, multi-city itineraries, and secure Stripe payment gateway.
-                        </p>
-                        <div class="project-tech-tags">
-                            <span>Next.js</span><span>Node.js</span><span>MongoDB</span><span>Stripe API</span><span>Redis</span>
-                        </div>
+                        <div class="project-category-tag"><i class="fas fa-code-branch"></i> GitHub Repository</div>
+                        <h3 class="project-title">Job Listing Platform</h3>
+                        <p class="project-desc">Full-stack job portal with candidate/admin authentication, job search and filtering, job creation, applications, profiles, resume uploads and protected routes.</p>
+                        <div class="project-tech-tags"><span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Multer</span></div>
                         <div class="project-card-footer">
-                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="flight-booking">
-                                <i class="fas fa-info-circle"></i> View Architecture
-                            </button>
-                            <a href="https://github.com/himanshu9771/flight-booker" target="_blank" rel="noopener" class="card-icon-link" title="Source Code">
-                                <i class="fab fa-github"></i>
-                            </a>
+                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="job-portal"><i class="fas fa-info-circle"></i> View Details</button>
+                            <a href="https://github.com/shivamsharmakr04/job-listing-app" target="_blank" rel="noopener" class="card-icon-link" title="Source Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Project 5: Decentralized Certificate Verification System -->
-                <div class="project-card tilt-card" data-category="blockchain" data-project-id="certificate-verification">
+                <div class="project-card tilt-card " data-category="fullstack" data-project-id="flight-booking">
+                    
                     <div class="project-image-box">
-                        <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=500&fit=crop" alt="Certificate Verification System" class="project-img" loading="lazy">
+                        <img src="Profile.jpeg" alt="Flight Booker" class="project-img" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <button class="p-link-btn project-details-btn" data-project-id="certificate-verification" title="Details">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                                <a href="https://github.com/himanshu9771/Certificate-verification-system" target="_blank" rel="noopener" class="p-link-btn" title="View Code">
-                                    <i class="fab fa-github"></i>
-                                </a>
+                                <button class="p-link-btn project-details-btn" data-project-id="flight-booking" title="View project details"><i class="fas fa-info-circle"></i> Details</button>
+                                <a href="https://github.com/shivamsharmakr04/flight-booker" target="_blank" rel="noopener" class="p-link-btn" title="GitHub repository"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-info">
-                        <div class="project-category-tag">
-                            <i class="fas fa-cubes"></i> Blockchain & Decentralization
-                        </div>
-                        <h3 class="project-title">BlockCert — Tamper-Proof Credential Ledger</h3>
-                        <p class="project-desc">
-                            Cryptographic verification protocol preventing degree fraud. Stores immutable cryptographic certificate hashes on decentralized IPFS ledgers with instant QR code scanning.
-                        </p>
-                        <div class="project-tech-tags">
-                            <span>React.js</span><span>Ethereum</span><span>IPFS</span><span>Node.js</span><span>Smart Contracts</span>
-                        </div>
+                        <div class="project-category-tag"><i class="fas fa-code-branch"></i> GitHub Repository</div>
+                        <h3 class="project-title">Flight Booker</h3>
+                        <p class="project-desc">Flight reservation application covering search, filtering, seat selection, passenger management, checkout workflow, booking history and server-side PDF ticket generation.</p>
+                        <div class="project-tech-tags"><span>React</span><span>Node.js</span><span>Express</span><span>Tailwind CSS</span><span>JWT</span></div>
                         <div class="project-card-footer">
-                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="certificate-verification">
-                                <i class="fas fa-info-circle"></i> View Architecture
-                            </button>
-                            <a href="https://github.com/himanshu9771/Certificate-verification-system" target="_blank" rel="noopener" class="card-icon-link" title="Source Code">
-                                <i class="fab fa-github"></i>
-                            </a>
+                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="flight-booking"><i class="fas fa-info-circle"></i> View Details</button>
+                            <a href="https://github.com/shivamsharmakr04/flight-booker" target="_blank" rel="noopener" class="card-icon-link" title="Source Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
-
-                <!-- Project 6: AI Code Assistant & Prompt-to-App Generator -->
-                <div class="project-card tilt-card" data-category="ai" data-project-id="ai-code-assistant">
+                <div class="project-card tilt-card " data-category="ai" data-project-id="ibvap">
+                    
                     <div class="project-image-box">
-                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=500&fit=crop" alt="AI Code Generator" class="project-img" loading="lazy">
+                        <img src="Profile.jpeg" alt="IBVAP — Intelligent Border Video Analytics Platform" class="project-img" loading="lazy">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <button class="p-link-btn project-details-btn" data-project-id="ai-code-assistant" title="Details">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                                <a href="https://github.com/shivamsharmakr04" target="_blank" rel="noopener" class="p-link-btn" title="View Code">
-                                    <i class="fab fa-github"></i>
-                                </a>
+                                <button class="p-link-btn project-details-btn" data-project-id="ibvap" title="View project details"><i class="fas fa-info-circle"></i> Details</button>
+                                <a href="https://github.com/shivamsharmakr04/IBVAP" target="_blank" rel="noopener" class="p-link-btn" title="GitHub repository"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="project-info">
-                        <div class="project-category-tag">
-                            <i class="fas fa-brain"></i> Artificial Intelligence & LLMs
-                        </div>
-                        <h3 class="project-title">DevPilot — Intelligent Code Synthesis</h3>
-                        <p class="project-desc">
-                            Developer productivity tool enabling natural language prompts to generate production-ready React components, SQL queries, and automated API unit tests using OpenAI LLMs.
-                        </p>
-                        <div class="project-tech-tags">
-                            <span>Python</span><span>FastAPI</span><span>OpenAI API</span><span>React</span><span>WebSockets</span>
-                        </div>
+                        <div class="project-category-tag"><i class="fas fa-code-branch"></i> GitHub Repository</div>
+                        <h3 class="project-title">IBVAP — Intelligent Border Video Analytics Platform</h3>
+                        <p class="project-desc">Full-stack command-center prototype for camera management, zones, events, alerts, watchlists, dashboard data, media handling and real-time WebSocket alerts.</p>
+                        <div class="project-tech-tags"><span>React</span><span>FastAPI</span><span>SQLAlchemy</span><span>PostgreSQL/SQLite</span><span>WebSockets</span></div>
                         <div class="project-card-footer">
-                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="ai-code-assistant">
-                                <i class="fas fa-info-circle"></i> View Architecture
-                            </button>
-                            <a href="https://github.com/shivamsharmakr04" target="_blank" rel="noopener" class="card-icon-link" title="Source Code">
-                                <i class="fab fa-github"></i>
-                            </a>
+                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="ibvap"><i class="fas fa-info-circle"></i> View Details</button>
+                            <a href="https://github.com/shivamsharmakr04/IBVAP" target="_blank" rel="noopener" class="card-icon-link" title="Source Code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
-
+                <div class="project-card tilt-card " data-category="frontend" data-project-id="elementum">
+                    
+                    <div class="project-image-box">
+                        <img src="Profile.jpeg" alt="Elementum — AI & Digital Product Studio" class="project-img" loading="lazy">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <button class="p-link-btn project-details-btn" data-project-id="elementum" title="View project details"><i class="fas fa-info-circle"></i> Details</button>
+                                <a href="https://github.com/shivamsharmakr04/Elementum" target="_blank" rel="noopener" class="p-link-btn" title="GitHub repository"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-category-tag"><i class="fas fa-code-branch"></i> GitHub Repository</div>
+                        <h3 class="project-title">Elementum — AI & Digital Product Studio</h3>
+                        <p class="project-desc">React/Vite frontend project demonstrating responsive product-studio UI, portfolio exploration, services, estimation workflow, inquiry wizard, testimonials and FAQs.</p>
+                        <div class="project-tech-tags"><span>React 19</span><span>Vite 8</span><span>Tailwind CSS 4</span><span>Framer Motion</span><span>Lucide React</span></div>
+                        <div class="project-card-footer">
+                            <button class="btn btn-secondary btn-sm project-details-btn" data-project-id="elementum"><i class="fas fa-info-circle"></i> View Details</button>
+                            <a href="https://github.com/shivamsharmakr04/Elementum" target="_blank" rel="noopener" class="card-icon-link" title="Source Code"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1065,155 +928,24 @@
         </div>
     </section>
 
-    <!-- GITHUB & OPEN SOURCE ACTIVITY SECTION -->
+    <!-- GITHUB ACTIVITY SECTION -->
     <section id="github" class="animate-on-scroll">
         <div class="section-container">
             <div class="section-header">
-                <span class="section-badge"><i class="fab fa-github"></i> Code Cadence</span>
-                <h2 class="section-title">Open Source & <span>Activity</span></h2>
-                <p class="section-desc">Consistent commits, continuous learning, and software delivery</p>
+                <span class="section-badge"><i class="fab fa-github"></i> GitHub</span>
+                <h2 class="section-title">Repository <span>Activity</span></h2>
+                <p class="section-desc">Live repository information is linked directly to GitHub; no fabricated contribution or popularity metrics are shown.</p>
             </div>
-
             <div class="github-stats-container tilt-card">
                 <div class="github-header">
                     <div class="github-user-info">
                         <img src="https://github.com/shivamsharmakr04.png" alt="Shivam Kumar GitHub" class="gh-avatar" onerror="this.src='Profile.jpeg'">
-                        <div>
-                            <h3>Shivam Kumar</h3>
-                            <a href="https://github.com/shivamsharmakr04" target="_blank" rel="noopener" class="gh-handle">@shivamsharmakr04 <i class="fas fa-external-link-alt"></i></a>
-                        </div>
+                        <div><h3>Shivam Kumar</h3><a href="https://github.com/shivamsharmakr04" target="_blank" rel="noopener" class="gh-handle">@shivamsharmakr04 <i class="fas fa-external-link-alt"></i></a></div>
                     </div>
-                    <div class="gh-quick-badges">
-                        <span class="gh-badge"><i class="fas fa-code-branch"></i> 20+ Repos</span>
-                        <span class="gh-badge"><i class="fas fa-star"></i> 45+ Stars</span>
-                        <span class="gh-badge"><i class="fas fa-fire"></i> 250+ Commits</span>
-                    </div>
+                    <div class="gh-quick-badges"><span class="gh-badge"><i class="fas fa-code-branch"></i> Public repositories</span><span class="gh-badge"><i class="fas fa-link"></i> Source-linked projects</span></div>
                 </div>
-
-                <!-- Simulated Contribution Heatmap -->
-                <div class="contribution-wrap">
-                    <div class="contribution-title">
-                        <span>250+ contributions in the last year</span>
-                        <div class="legend">
-                            <span>Less</span>
-                            <span class="cell l-0"></span>
-                            <span class="cell l-1"></span>
-                            <span class="cell l-2"></span>
-                            <span class="cell l-3"></span>
-                            <span class="cell l-4"></span>
-                            <span>More</span>
-                        </div>
-                    </div>
-                    <div class="heatmap-grid" id="heatmapGrid">
-                        <!-- Populated by JavaScript -->
-                    </div>
-                </div>
-
-                <!-- Featured Repos Showcase Mini Grid -->
                 <div class="featured-repos-grid">
-                    <a href="https://github.com/himanshu9771/finance-Dashboard" target="_blank" rel="noopener" class="repo-card">
-                        <div class="repo-head">
-                            <i class="fas fa-book-bookmark"></i>
-                            <span class="repo-name">finance-Dashboard</span>
-                            <span class="repo-visibility">Public</span>
-                        </div>
-                        <p class="repo-desc">Real-time financial analytics dashboard with dynamic candlestick charts & AI trend predictions.</p>
-                        <div class="repo-meta">
-                            <span><span class="lang-color js-color"></span> JavaScript</span>
-                            <span><i class="far fa-star"></i> 18</span>
-                            <span><i class="fas fa-code-fork"></i> 5</span>
-                        </div>
-                    </a>
-                    <a href="https://github.com/himanshu9771/job-listing-app" target="_blank" rel="noopener" class="repo-card">
-                        <div class="repo-head">
-                            <i class="fas fa-book-bookmark"></i>
-                            <span class="repo-name">job-listing-app</span>
-                            <span class="repo-visibility">Public</span>
-                        </div>
-                        <p class="repo-desc">Full stack job recruitment portal with resume match ranking and real-time alerts.</p>
-                        <div class="repo-meta">
-                            <span><span class="lang-color react-color"></span> React.js</span>
-                            <span><i class="far fa-star"></i> 24</span>
-                            <span><i class="fas fa-code-fork"></i> 8</span>
-                        </div>
-                    </a>
-                    <a href="https://github.com/himanshu9771/Certificate-verification-system" target="_blank" rel="noopener" class="repo-card">
-                        <div class="repo-head">
-                            <i class="fas fa-book-bookmark"></i>
-                            <span class="repo-name">Certificate-verification-system</span>
-                            <span class="repo-visibility">Public</span>
-                        </div>
-                        <p class="repo-desc">Blockchain-based academic certificate verification platform with QR verification.</p>
-                        <div class="repo-meta">
-                            <span><span class="lang-color solidity-color"></span> Solidity / Node</span>
-                            <span><i class="far fa-star"></i> 14</span>
-                            <span><i class="fas fa-code-fork"></i> 4</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONIALS / ENDORSEMENTS SECTION -->
-    <section id="testimonials" class="animate-on-scroll">
-        <div class="section-container">
-            <div class="section-header">
-                <span class="section-badge"><i class="fas fa-comments"></i> Endorsements</span>
-                <h2 class="section-title">What Collaborators <span>Say</span></h2>
-                <p class="section-desc">Feedback from team leads, internship mentors, and fellow developers</p>
-            </div>
-
-            <div class="testimonials-grid">
-                <div class="testimonial-card tilt-card">
-                    <div class="testimonial-quote-icon"><i class="fas fa-quote-right"></i></div>
-                    <div class="star-rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "Shivam demonstrated strong frontend and responsive design fundamentals during his tenure. He picked up complex user interface requirements quickly and always ensured pixel-perfect responsiveness across mobile and desktop."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"><i class="fas fa-user-tie"></i></div>
-                        <div>
-                            <h4>Technical Lead</h4>
-                            <small>Amdox Technologies Pvt. Ltd.</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card tilt-card">
-                    <div class="testimonial-quote-icon"><i class="fas fa-quote-right"></i></div>
-                    <div class="star-rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "An enthusiastic developer who writes clean, maintainable JavaScript code. His work on interactive dashboards and modern animations really stood out. Shivam is a dependable engineer who cares deeply about user experience."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"><i class="fas fa-user-astronaut"></i></div>
-                        <div>
-                            <h4>Frontend Supervisor</h4>
-                            <small>Happieloop Technologies</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card tilt-card">
-                    <div class="testimonial-quote-icon"><i class="fas fa-quote-right"></i></div>
-                    <div class="star-rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "Collaborated with Shivam on full-stack projects including the Finance Dashboard and Job Portal. His speed of execution, eye for sleek UI design, and problem-solving mindset make him an asset for any development team."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"><i class="fas fa-code"></i></div>
-                        <div>
-                            <h4>Senior Peer Developer</h4>
-                            <small>Open Source Collaborator</small>
-                        </div>
-                    </div>
+                    <a href="https://github.com/shivamsharmakr04/finance-Dashboard" target="_blank" rel="noopener" class="repo-card"><div class="repo-head"><i class="fas fa-book-bookmark"></i><span class="repo-name">finance-Dashboard</span></div><p class="repo-desc">Personal finance dashboard with REST/WebSocket services.</p><div class="repo-meta"><span><i class="fab fa-github"></i> View repository</span></div></a><a href="https://github.com/shivamsharmakr04/Student-Dashboard" target="_blank" rel="noopener" class="repo-card"><div class="repo-head"><i class="fas fa-book-bookmark"></i><span class="repo-name">Student-Dashboard</span></div><p class="repo-desc">Next.js + Supabase student management dashboard.</p><div class="repo-meta"><span><i class="fab fa-github"></i> View repository</span></div></a><a href="https://github.com/shivamsharmakr04/Certificate-verification-system" target="_blank" rel="noopener" class="repo-card"><div class="repo-head"><i class="fas fa-book-bookmark"></i><span class="repo-name">Certificate-verification-system</span></div><p class="repo-desc">Certificate verification with OCR, auth and PDF workflows.</p><div class="repo-meta"><span><i class="fab fa-github"></i> View repository</span></div></a><a href="https://github.com/shivamsharmakr04/IBVAP" target="_blank" rel="noopener" class="repo-card"><div class="repo-head"><i class="fas fa-book-bookmark"></i><span class="repo-name">IBVAP</span></div><p class="repo-desc">FastAPI + React security-monitoring prototype.</p><div class="repo-meta"><span><i class="fab fa-github"></i> View repository</span></div></a>
                 </div>
             </div>
         </div>
@@ -1403,13 +1135,8 @@
                     <i class="fas fa-envelope"></i> <span>Contact Shivam</span>
                 </div>
 
-                <div class="cmd-group-title">Featured Projects Demo</div>
-                <div class="cmd-item" data-action="sandbox" data-project="finance-dashboard">
-                    <i class="fas fa-chart-line text-success"></i> <span>Launch Finance Dashboard Sandbox</span>
-                </div>
-                <div class="cmd-item" data-action="sandbox" data-project="student-dashboard">
-                    <i class="fas fa-graduation-cap text-accent"></i> <span>Launch Student LMS Portal Sandbox</span>
-                </div>
+                <div class="cmd-group-title">Projects</div>
+                <div class="cmd-item" data-action="goto" data-target="#projects"><i class="fas fa-code-branch"></i> <span>Browse Verified GitHub Projects</span></div>
 
                 <div class="cmd-group-title">Actions & Downloads</div>
                 <div class="cmd-item" data-action="resume">
