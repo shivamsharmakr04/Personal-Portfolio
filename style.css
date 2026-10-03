@@ -179,6 +179,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: clip;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -724,7 +725,7 @@ nav.scrolled {
 .mobile-menu {
     position: fixed;
     top: 0;
-    right: -320px;
+    right: 0;
     width: min(320px, 85vw);
     height: 100%;
     background: var(--bg-dark);
@@ -735,11 +736,15 @@ nav.scrolled {
     justify-content: space-between;
     padding: 1.8rem 1.5rem;
     box-shadow: -10px 0 35px rgba(0, 0, 0, 0.6);
-    transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.35s;
 }
 
 .mobile-menu.active {
-    right: 0;
+    transform: translateX(0);
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 .mobile-menu-header {
@@ -3533,7 +3538,7 @@ footer {
    -------------------------------------------------- */
 @media (max-width: 1200px) {
     .hero-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 3rem;
     }
     .hero-text {

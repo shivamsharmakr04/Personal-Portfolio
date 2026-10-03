@@ -112,18 +112,27 @@ function openMobileMenu() {
     if (!mobileMenu || !mobileMenuOverlay) return;
     mobileMenu.classList.add('active');
     mobileMenuOverlay.classList.add('active');
+    mobileMenuBtn?.setAttribute('aria-expanded', 'true');
+    mobileMenuBtn?.setAttribute('aria-label', 'Close navigation menu');
+    mobileMenu.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 }
 function closeMobileMenu() {
     if (!mobileMenu || !mobileMenuOverlay) return;
     mobileMenu.classList.remove('active');
     mobileMenuOverlay.classList.remove('active');
+    mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+    mobileMenuBtn?.setAttribute('aria-label', 'Open navigation menu');
+    mobileMenu.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
 }
 if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
 if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
 if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMobileMenu);
 document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', closeMobileMenu));
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeMobileMenu();
+});
 
 // Particle background
 const canvas = document.getElementById('particleCanvas');
