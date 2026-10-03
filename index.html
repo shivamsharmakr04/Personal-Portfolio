@@ -10,10 +10,13 @@
     <!-- Modern Typography: Plus Jakarta Sans for UI + JetBrains Mono for Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
     
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
     <!-- Core Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -303,7 +306,7 @@
         <div class="stats-container">
             <div class="stat-box">
                 <div class="stat-icon-wrap"><i class="fas fa-layer-group"></i></div>
-                <div class="stat-content"><div class="stat-number static-stat">7</div><div class="stat-label">Featured GitHub Projects</div></div>
+                <div class="stat-content"><div class="stat-number static-stat">7+</div><div class="stat-label">Featured GitHub Projects</div></div>
             </div>
             <div class="stat-box">
                 <div class="stat-icon-wrap"><i class="fas fa-code"></i></div>
@@ -333,16 +336,10 @@
                 <div class="about-visual">
                     <div class="profile-card tilt-card">
                         <div class="profile-img-container">
-                            <img src="Profile.jpeg" alt="Shivam Kumar - Full Stack Developer" class="profile-img">
+                            <img src="Profile.jpeg" alt="Shivam Kumar - Full Stack Developer" class="profile-img" loading="lazy" decoding="async">
                             <div class="profile-status-badge">
                                 <span class="status-indicator"></span> Available for Hire
                             </div>
-                        </div>
-                        <div class="profile-floating-badge badge-top-right">
-                            <i class="fas fa-award"></i> Certified Web Developer
-                        </div>
-                        <div class="profile-floating-badge badge-bottom-left">
-                            <i class="fas fa-code"></i> Clean Code Practitioner
                         </div>
                     </div>
                 </div>
@@ -617,7 +614,7 @@
                 <div class="project-card tilt-card featured-project" data-category="dashboard" data-project-id="finance-dashboard">
                     <div class="project-badge-pill"><i class="fas fa-star"></i> Featured</div>
                     <div class="project-image-box">
-                        <img src="assets/images/finance_dashboard.jpg" alt="Finova Pro — Personal Finance Dashboard" class="project-img" loading="lazy">
+                        <img src="assets/images/finance_dashboard.jpg" alt="Finova Pro — Personal Finance Dashboard" class="project-img" loading="lazy" decoding="async">
                         <div class="project-overlay">
                             <div class="project-links">
                                 <button class="p-link-btn project-details-btn" data-project-id="finance-dashboard" title="View project details"><i class="fas fa-info-circle"></i> Details</button>
@@ -639,7 +636,7 @@
                 <div class="project-card tilt-card " data-category="dashboard" data-project-id="student-dashboard">
                     
                     <div class="project-image-box">
-                        <img src="assets/images/student_dashboard.jpg" alt="Student Dashboard" class="project-img" loading="lazy">
+                        <img src="assets/images/student_dashboard.jpg" alt="Student Dashboard" class="project-img" loading="lazy" decoding="async">
                         <div class="project-overlay">
                             <div class="project-links">
                                 <button class="p-link-btn project-details-btn" data-project-id="student-dashboard" title="View project details"><i class="fas fa-info-circle"></i> Details</button>
@@ -995,7 +992,7 @@
             <div class="github-stats-container tilt-card">
                 <div class="github-header">
                     <div class="github-user-info">
-                        <img src="https://github.com/shivamsharmakr04.png" alt="Shivam Kumar GitHub" class="gh-avatar" onerror="this.src='Profile.jpeg'">
+                        <img src="Profile.jpeg" alt="Shivam Kumar GitHub" class="gh-avatar" loading="lazy" decoding="async" width="52" height="52">
                         <div><h3>Shivam Kumar</h3><a href="https://github.com/shivamsharmakr04" target="_blank" rel="noopener" class="gh-handle">@shivamsharmakr04 <i class="fas fa-external-link-alt"></i></a></div>
                     </div>
                     <div class="gh-quick-badges"><span class="gh-badge"><i class="fas fa-code-branch"></i> Public repositories</span><span class="gh-badge"><i class="fas fa-link"></i> Source-linked projects</span></div>
