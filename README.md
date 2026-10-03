@@ -2,13 +2,7 @@
 
 A modern, interactive personal portfolio built with **HTML5, CSS3, and Vanilla JavaScript**.
 
-<<<<<<< HEAD
-[![Live Portfolio](https://img.shields.io/badge/Portfolio-Live-111827?style=for-the-badge&logo=vercel&logoColor=white)](https://personal-portfolio-three-wheat-58.vercel.app/)
-[![GitHub](https://img.shields.io/badge/GitHub-shivamsharmakr04-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/shivamsharmakr04)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Shivam%20Kumar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shivam-sharmakr/)
-=======
 The portfolio is intentionally grounded in the actual projects and technology stacks represented by my GitHub repositories. It does not display fabricated repository stars, forks, contribution totals, portfolio balances, GPA values, or simulated market data.
->>>>>>> fd8285b3e3281b64d4d43fd98ce085782cc86cfa
 
 ## Featured GitHub Projects
 
@@ -71,18 +65,9 @@ The repository also contains the portfolio profile image, resume and internship/
 
 ## Links
 
-<<<<<<< HEAD
-- **Portfolio**: https://personal-portfolio-three-wheat-58.vercel.app/
-- **GitHub**: https://github.com/shivamsharmakr04
-- **LinkedIn**: https://www.linkedin.com/in/shivam-sharmakr/
-- **Email**: shivamsharmakr04@gmail.com
-- **Phone**: +91 9771050501
-- **Location**: Dehradun, Uttarakhand, India
-=======
 - GitHub: https://github.com/shivamsharmakr04
 - LinkedIn: https://www.linkedin.com/in/shivam-kumar-b0aab2209/
 - Portfolio repository: https://github.com/shivamsharmakr04/Personal-Portfolio
->>>>>>> fd8285b3e3281b64d4d43fd98ce085782cc86cfa
 
 ## License
 
