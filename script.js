@@ -212,29 +212,196 @@ document.querySelectorAll('.tilt-card').forEach(card => {
     card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
-// Skills filters
+// --- Enhanced Technical Skills Progress Loaders & Filter System ---
 const skillSearch = document.getElementById('skillSearchInput');
+const skillSearchBox = document.getElementById('skillsSearchBox');
 const skillClear = document.getElementById('clearSkillSearch');
 const skillTabs = document.querySelectorAll('.skill-tab-btn');
 const skillCards = document.querySelectorAll('.skill-card');
-function filterSkills() {
-    const q = skillSearch ? skillSearch.value.trim().toLowerCase() : '';
-    const cat = document.querySelector('.skill-tab-btn.active')?.dataset.category || 'all';
-    skillCards.forEach(card => {
-        const matchesCat = cat === 'all' || card.dataset.cat === cat;
-        const matchesText = !q || card.textContent.toLowerCase().includes(q);
-        card.classList.toggle('filtered-out', !(matchesCat && matchesText));
+const skillsEmptyState = document.getElementById('skillsEmptyState');
+const emptyQueryText = document.getElementById('emptyQueryText');
+const resetSkillFilterBtn = document.getElementById('resetSkillFilterBtn');
+const skillsCountStatus = document.getElementById('skillsCountStatus');
+
+// Smooth number counter for skill proficiency
+function animateMeterCounter(valEl, targetVal, duration = 950) {
+    if (!valEl) return;
+    const start = 0;
+    let startTime = null;
+    function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3); // Smooth ease-out cubic
+        const current = Math.round(start + (targetVal - start) * ease);
+        valEl.textContent = current + '%';
+        if (progress < 1) {
+            requestAnimationFrame(step);
+        } else {
+            valEl.textContent = targetVal + '%';
+        }
+    }
+    requestAnimationFrame(step);
+}
+
+// Animate meters in a single card
+function animateSkillCard(card, force = false) {
+    if (!card) return;
+    if (!force && card.dataset.animated === 'true') return;
+    card.dataset.animated = 'true';
+
+    const meters = card.querySelectorAll('.skill-meter');
+    meters.forEach((meter, index) => {
+        const fill = meter.querySelector('.meter-fill');
+        const val = meter.querySelector('.meter-val');
+        const target = parseInt(val?.dataset.target || '90', 10);
+
+        if (fill) {
+            fill.classList.remove('loaded');
+            setTimeout(() => {
+                fill.classList.add('loaded');
+            }, index * 80 + 30);
+        }
+        if (val) {
+            setTimeout(() => {
+                animateMeterCounter(val, target, 900);
+            }, index * 80 + 40);
+        }
     });
 }
-if (skillSearch) skillSearch.addEventListener('input', filterSkills);
-if (skillClear) skillClear.addEventListener('click', () => { skillSearch.value = ''; filterSkills(); skillSearch.focus(); });
+
+// Intersection Observer for viewport-triggered progress loader
+const skillCardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateSkillCard(entry.target);
+        }
+    });
+}, { threshold: 0.15, rootMargin: '0px 0px -20px 0px' });
+
+skillCards.forEach(card => skillCardObserver.observe(card));
+
+// Filtering and live search
+function filterSkills(triggerReanimate = false) {
+    const q = skillSearch ? skillSearch.value.trim().toLowerCase() : '';
+    const activeTab = document.querySelector('.skill-tab-btn.active');
+    const cat = activeTab ? activeTab.dataset.category : 'all';
+
+    if (skillSearchBox) {
+        skillSearchBox.classList.toggle('has-query', q.length > 0);
+    }
+
+    let visibleCards = 0;
+    let visibleCompetencies = 0;
+
+    skillCards.forEach(card => {
+        const cardCat = card.dataset.cat || '';
+        const matchesCat = (cat === 'all') || (cardCat === cat);
+        const cardText = card.textContent.toLowerCase();
+        const matchesText = !q || cardText.includes(q);
+        const isVisible = matchesCat && matchesText;
+
+        card.classList.toggle('filtered-out', !isVisible);
+
+        if (isVisible) {
+            visibleCards++;
+            visibleCompetencies += card.querySelectorAll('.skill-meter').length;
+            card.classList.remove('fade-in');
+            void card.offsetWidth; // Trigger reflow for smooth animation
+            card.classList.add('fade-in');
+
+            if (triggerReanimate || card.dataset.animated !== 'true') {
+                animateSkillCard(card, true);
+            }
+        }
+    });
+
+    // Update status counter text
+    if (skillsCountStatus) {
+        if (q || cat !== 'all') {
+            skillsCountStatus.innerHTML = `Showing <strong>${visibleCards}</strong> of ${skillCards.length} skill sets &bull; <strong>${visibleCompetencies}</strong> proficiencies matching filter`;
+        } else {
+            skillsCountStatus.innerHTML = `Showing <strong>${visibleCards}</strong> skill domains &bull; <strong>${visibleCompetencies}</strong> verified competencies`;
+        }
+    }
+
+    // Handle Empty State
+    if (skillsEmptyState) {
+        if (visibleCards === 0) {
+            skillsEmptyState.style.display = 'block';
+            if (emptyQueryText) emptyQueryText.textContent = q || cat;
+        } else {
+            skillsEmptyState.style.display = 'none';
+        }
+    }
+}
+
+if (skillSearch) {
+    skillSearch.addEventListener('input', () => filterSkills(false));
+}
+
+if (skillClear) {
+    skillClear.addEventListener('click', () => {
+        skillSearch.value = '';
+        filterSkills(true);
+        skillSearch.focus();
+        sfx.play('pop');
+    });
+}
+
+if (resetSkillFilterBtn) {
+    resetSkillFilterBtn.addEventListener('click', () => {
+        if (skillSearch) skillSearch.value = '';
+        skillTabs.forEach(b => b.classList.remove('active'));
+        const allBtn = document.querySelector('.skill-tab-btn[data-category="all"]');
+        if (allBtn) allBtn.classList.add('active');
+        filterSkills(true);
+        sfx.play('pop');
+        showToast('Skill filters reset', 'fas fa-rotate-left');
+    });
+}
+
 skillTabs.forEach(btn => btn.addEventListener('click', () => {
-    skillTabs.forEach(b => b.classList.remove('active'));
+    skillTabs.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+    });
     btn.classList.add('active');
-    filterSkills();
+    btn.setAttribute('aria-selected', 'true');
+    filterSkills(true);
+    sfx.play('pop');
 }));
 
-// Project filters
+// Quick '/' shortcut to jump directly to skill search
+document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && !['input', 'textarea'].includes(document.activeElement?.tagName?.toLowerCase())) {
+        if (skillSearch) {
+            e.preventDefault();
+            skillSearch.focus();
+            skillSearch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            showToast('Search technical skills', 'fas fa-search');
+        }
+    }
+});
+
+// Interactive Skill Chips click handler
+document.querySelectorAll('.skill-chip').forEach(chip => {
+    chip.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const tech = chip.dataset.tech || chip.textContent.trim();
+        if (!skillSearch) return;
+
+        // Toggle active chip style
+        document.querySelectorAll('.skill-chip').forEach(c => c.classList.remove('active-chip'));
+        chip.classList.add('active-chip');
+
+        skillSearch.value = tech;
+        filterSkills(true);
+        sfx.play('pop');
+        showToast(`Filtered by ${tech}`, 'fas fa-filter');
+    });
+});
+
+// Project filters with count & smooth transition
 const filterBtns = document.querySelectorAll('.filter-btn');
 const projectCards = document.querySelectorAll('.project-card');
 filterBtns.forEach(btn => btn.addEventListener('click', () => {
@@ -244,8 +411,13 @@ filterBtns.forEach(btn => btn.addEventListener('click', () => {
     projectCards.forEach(card => {
         const show = filter === 'all' || card.dataset.category === filter;
         card.style.display = show ? 'flex' : 'none';
-        if (show) card.style.animation = 'fadeIn .35s ease forwards';
+        if (show) {
+            card.style.animation = 'none';
+            void card.offsetWidth;
+            card.style.animation = 'fadeIn .35s ease forwards';
+        }
     });
+    sfx.play('pop');
 }));
 
 // Journey tabs
@@ -456,21 +628,49 @@ const terminalOutput = document.getElementById('terminalOutput');
 const terminalForm = document.getElementById('terminalForm');
 const terminalInput = document.getElementById('terminalInput');
 const terminalCommands = {
-    help: 'Commands: projects, skills, about, contact, resume, clear',
-    projects: '7 verified GitHub projects: Finova Pro, Student Dashboard, CertiVerify, Job Listing Platform, Flight Booker, IBVAP, Elementum.',
-    skills: 'React, Next.js, TypeScript, JavaScript, Node.js, Express, Python/FastAPI, MongoDB, PostgreSQL, Supabase, Tailwind CSS, REST APIs, WebSockets.',
-    about: 'Shivam Kumar — Full-Stack Developer.',
-    contact: 'Email: shivamsharmakr04@gmail.com | Location: Dehradun, India',
+    help: 'Available commands: skills, projects, about, contact, theme &lt;name&gt;, resume, clear',
+    projects: '7 verified GitHub projects: Finova Pro, Student Dashboard, CertiVerify, Job Listing Platform, Flight Booker, IBVAP, Elementum. (Click or type project name to inspect)',
+    skills: '<div style="margin: 0.4rem 0; line-height: 1.6; font-family:\'JetBrains Mono\', monospace;"><span style="color:var(--accent); font-weight:700;">// Technical Skills &amp; Proficiency Level:</span><br>' +
+            'React.js &amp; Next.js      <span style="color:#6366f1;">[███████████████████░]</span> 95%<br>' +
+            'TypeScript &amp; ES6+       <span style="color:#38bdf8;">[██████████████████░░]</span> 92%<br>' +
+            'Node.js &amp; Express.js     <span style="color:#10b981;">[██████████████████░░]</span> 90%<br>' +
+            'Python / FastAPI        <span style="color:#14b8a6;">[█████████████████░░░]</span> 85%<br>' +
+            'MongoDB &amp; PostgreSQL    <span style="color:#f43f5e;">[██████████████████░░]</span> 90%<br>' +
+            'Docker &amp; ContainerOps   <span style="color:#f59e0b;">[████████████████░░░░]</span> 80%<br>' +
+            'AI / Vision Pipelines   <span style="color:#9333ea;">[█████████████████░░░]</span> 88%</div>',
+    about: 'Shivam Kumar — Full-Stack Developer specializing in high-performance web applications, responsive interfaces, and REST/WebSocket backend architectures.',
+    contact: 'Email: shivamsharmakr04@gmail.com | Location: Dehradun, India | GitHub: github.com/shivamsharmakr04',
     resume: 'Opening resume…',
     clear: ''
 };
 function runCommand(raw) {
     const cmd = raw.trim().toLowerCase();
     if (!cmd || !terminalOutput) return;
+    sfx.play('click');
     if (cmd === 'resume') { window.open('Shivam_Kumar_Resume.pdf', '_blank'); return; }
     if (cmd === 'clear') { terminalOutput.innerHTML = ''; return; }
+    if (cmd.startsWith('theme ')) {
+        const tName = cmd.replace('theme ', '').trim();
+        if (themeNames[tName]) {
+            setTheme(tName);
+            showToast(`Theme changed to ${themeNames[tName]}`, 'fas fa-palette');
+            const line = document.createElement('div');
+            line.className = 'term-line';
+            line.innerHTML = `<span class="terminal-prompt">shivam@portfolio:~$</span> ${escapeHTML(raw)}<br><span class="term-res" style="color:var(--success);">✓ Switched theme to ${themeNames[tName]}</span>`;
+            terminalOutput.appendChild(line);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            return;
+        } else {
+            const line = document.createElement('div');
+            line.className = 'term-line';
+            line.innerHTML = `<span class="terminal-prompt">shivam@portfolio:~$</span> ${escapeHTML(raw)}<br><span class="term-res" style="color:var(--danger);">Theme not recognized. Options: ${Object.keys(themeNames).join(', ')}</span>`;
+            terminalOutput.appendChild(line);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            return;
+        }
+    }
     if (projectData[cmd]) { openProjectModal(cmd); return; }
-    const result = terminalCommands[cmd] || `Command not found: "${escapeHTML(cmd)}". Type help.`;
+    const result = terminalCommands[cmd] || `Command not found: "${escapeHTML(cmd)}". Type 'help' for available commands.`;
     const line = document.createElement('div');
     line.className = 'term-line';
     line.innerHTML = `<span class="terminal-prompt">shivam@portfolio:~$</span> ${escapeHTML(cmd)}<br><span class="term-res">${result}</span>`;

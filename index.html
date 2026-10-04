@@ -409,18 +409,33 @@
 
             <!-- Skills Search & Category Filters -->
             <div class="skills-filter-toolbar">
-                <div class="skills-search-box">
+                <div class="skills-search-box" id="skillsSearchBox">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="skillSearchInput" placeholder="Filter skills (e.g. React, Python, Docker)...">
-                    <button class="clear-search-btn" id="clearSkillSearch" title="Clear search"><i class="fas fa-times"></i></button>
+                    <input type="text" id="skillSearchInput" placeholder="Filter skills (e.g. React, Python, Docker)..." autocomplete="off" spellcheck="false">
+                    <span class="search-hint" title="Press '/' to search"><kbd>/</kbd></span>
+                    <button class="clear-search-btn" id="clearSkillSearch" title="Clear search" aria-label="Clear skill search"><i class="fas fa-times"></i></button>
                 </div>
-                <div class="skills-category-tabs">
-                    <button class="skill-tab-btn active" data-category="all">All Skills</button>
-                    <button class="skill-tab-btn" data-category="frontend">Frontend</button>
-                    <button class="skill-tab-btn" data-category="backend">Backend</button>
-                    <button class="skill-tab-btn" data-category="dashboard">Dashboards & Data</button>
-                    <button class="skill-tab-btn" data-category="cloud">Cloud & AI</button>
+                <div class="skills-category-tabs" role="tablist" aria-label="Skill categories">
+                    <button class="skill-tab-btn active" data-category="all" role="tab" aria-selected="true"><i class="fas fa-layer-group"></i> All Skills <span class="tab-count">6</span></button>
+                    <button class="skill-tab-btn" data-category="frontend" role="tab" aria-selected="false"><i class="fab fa-react"></i> Frontend <span class="tab-count">1</span></button>
+                    <button class="skill-tab-btn" data-category="backend" role="tab" aria-selected="false"><i class="fab fa-node-js"></i> Backend &amp; Tools <span class="tab-count">2</span></button>
+                    <button class="skill-tab-btn" data-category="dashboard" role="tab" aria-selected="false"><i class="fas fa-chart-line"></i> Dashboards &amp; Data <span class="tab-count">1</span></button>
+                    <button class="skill-tab-btn" data-category="cloud" role="tab" aria-selected="false"><i class="fas fa-cloud"></i> Cloud &amp; AI <span class="tab-count">2</span></button>
                 </div>
+            </div>
+
+            <!-- Skills Status Bar -->
+            <div class="skills-status-bar" id="skillsStatusBar">
+                <span class="status-indicator-dot"></span>
+                <span id="skillsCountStatus">Showing <strong>6</strong> skill domains &bull; <strong>16</strong> verified competencies</span>
+            </div>
+
+            <!-- Skills Empty State -->
+            <div class="skills-empty-state" id="skillsEmptyState" style="display: none;">
+                <div class="empty-icon"><i class="fas fa-search"></i></div>
+                <h3>No matching skills found</h3>
+                <p>No technical skills match "<strong id="emptyQueryText"></strong>". Try searching for "React", "Python", "Docker", etc.</p>
+                <button type="button" class="btn btn-secondary btn-sm" id="resetSkillFilterBtn"><i class="fas fa-rotate-left"></i> Reset Filters</button>
             </div>
 
             <!-- Skills Cards Grid -->
@@ -430,27 +445,45 @@
                     <div class="skill-header">
                         <div class="skill-icon frontend-icon"><i class="fab fa-react"></i></div>
                         <div>
-                            <h3>Frontend & UI/UX</h3>
+                            <h3>Frontend &amp; UI/UX</h3>
                             <span class="skill-level">Core Specialization</span>
                         </div>
                     </div>
                     <p class="skill-summary">Building reactive, fluid component architectures with pixel-perfect responsive layouts and micro-animations.</p>
                     <div class="skill-bars-list">
                         <div class="skill-meter" data-skill="React.js / Next.js">
-                            <div class="meter-info"><span>React.js & Next.js</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 95%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fab fa-react"></i> React.js &amp; Next.js</span>
+                                <span class="meter-val" data-target="95">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="React.js and Next.js proficiency 95%">
+                                <div class="meter-fill" style="--w: 95%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                         <div class="skill-meter" data-skill="JavaScript / TypeScript">
-                            <div class="meter-info"><span>JavaScript (ES6+) & TypeScript</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 92%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fab fa-js"></i> JavaScript (ES6+) &amp; TypeScript</span>
+                                <span class="meter-val" data-target="92">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="JavaScript and TypeScript proficiency 92%">
+                                <div class="meter-fill" style="--w: 92%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                         <div class="skill-meter" data-skill="HTML5 / Modern CSS3">
-                            <div class="meter-info"><span>HTML5, CSS3 & Tailwind CSS</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 96%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fab fa-html5"></i> HTML5, CSS3 &amp; Tailwind CSS</span>
+                                <span class="meter-val" data-target="96">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100" aria-label="HTML5, CSS3, and Tailwind CSS proficiency 96%">
+                                <div class="meter-fill" style="--w: 96%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                     </div>
                     <div class="skill-chips">
-                        <span>React Router</span><span>TailwindCSS</span><span>Framer Motion</span><span>Responsive UI</span>
+                        <button type="button" class="skill-chip" data-tech="React">React Router</button>
+                        <button type="button" class="skill-chip" data-tech="Tailwind">TailwindCSS</button>
+                        <button type="button" class="skill-chip" data-tech="Framer Motion">Framer Motion</button>
+                        <button type="button" class="skill-chip" data-tech="Responsive">Responsive UI</button>
                     </div>
                 </div>
 
@@ -459,27 +492,45 @@
                     <div class="skill-header">
                         <div class="skill-icon backend-icon"><i class="fab fa-node-js"></i></div>
                         <div>
-                            <h3>Backend & APIs</h3>
+                            <h3>Backend &amp; APIs</h3>
                             <span class="skill-level">Scalable Services</span>
                         </div>
                     </div>
                     <p class="skill-summary">Designing high-throughput microservices, RESTful APIs, JWT authentication, and websocket events.</p>
                     <div class="skill-bars-list">
                         <div class="skill-meter" data-skill="Node.js & Express">
-                            <div class="meter-info"><span>Node.js & Express.js</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 90%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fab fa-node-js"></i> Node.js &amp; Express.js</span>
+                                <span class="meter-val" data-target="90">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Node.js and Express proficiency 90%">
+                                <div class="meter-fill" style="--w: 90%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                         <div class="skill-meter" data-skill="Python FastAPI & Flask">
-                            <div class="meter-info"><span>Python / FastAPI</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 85%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fab fa-python"></i> Python / FastAPI</span>
+                                <span class="meter-val" data-target="85">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Python and FastAPI proficiency 85%">
+                                <div class="meter-fill" style="--w: 85%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                         <div class="skill-meter" data-skill="REST APIs & WebSockets">
-                            <div class="meter-info"><span>REST APIs & WebSockets</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 88%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fas fa-network-wired"></i> REST APIs &amp; WebSockets</span>
+                                <span class="meter-val" data-target="88">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="REST APIs and WebSockets proficiency 88%">
+                                <div class="meter-fill" style="--w: 88%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                     </div>
                     <div class="skill-chips">
-                        <span>JWT Auth</span><span>Protected Routes</span><span>Modular Backend</span><span>Middleware</span>
+                        <button type="button" class="skill-chip" data-tech="JWT">JWT Auth</button>
+                        <button type="button" class="skill-chip" data-tech="Protected Routes">Protected Routes</button>
+                        <button type="button" class="skill-chip" data-tech="Modular Backend">Modular Backend</button>
+                        <button type="button" class="skill-chip" data-tech="Middleware">Middleware</button>
                     </div>
                 </div>
 
@@ -488,27 +539,44 @@
                     <div class="skill-header">
                         <div class="skill-icon dashboard-icon"><i class="fas fa-chart-line"></i></div>
                         <div>
-                            <h3>Dashboards & Analytics</h3>
+                            <h3>Dashboards &amp; Analytics</h3>
                             <span class="skill-level">Interactive Visuals</span>
                         </div>
                     </div>
                     <p class="skill-summary">Creating real-time financial dashboards, student analytics tracking, live charts, and KPI reporting modules.</p>
                     <div class="skill-bars-list">
                         <div class="skill-meter" data-skill="Chart.js & Data Visualization">
-                            <div class="meter-info"><span>Chart.js & data visualization</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 89%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fas fa-chart-pie"></i> Chart.js &amp; Data Visualization</span>
+                                <span class="meter-val" data-target="89">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100" aria-label="Chart.js and data visualization proficiency 89%">
+                                <div class="meter-fill" style="--w: 89%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                         <div class="skill-meter" data-skill="Financial & Metric Dashboards">
-                            <div class="meter-info"><span>Finance & student dashboard layouts</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 93%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fas fa-wallet"></i> Finance &amp; Student Dashboards</span>
+                                <span class="meter-val" data-target="93">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="93" aria-valuemin="0" aria-valuemax="100" aria-label="Finance and student dashboard layouts proficiency 93%">
+                                <div class="meter-fill" style="--w: 93%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                         <div class="skill-meter" data-skill="Data Aggregation">
-                            <div class="meter-info"><span>Data Aggregation & Realtime Streams</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 86%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fas fa-stream"></i> Data Aggregation &amp; Realtime</span>
+                                <span class="meter-val" data-target="86">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" aria-label="Data Aggregation and Realtime Streams proficiency 86%">
+                                <div class="meter-fill" style="--w: 86%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                     </div>
                     <div class="skill-chips">
-                        <span>Finance Charts</span><span>Academic Analytics</span><span>Data Tables</span>
+                        <button type="button" class="skill-chip" data-tech="Chart.js">Finance Charts</button>
+                        <button type="button" class="skill-chip" data-tech="Analytics">Academic Analytics</button>
+                        <button type="button" class="skill-chip" data-tech="Data Tables">Data Tables</button>
                     </div>
                 </div>
 
@@ -517,27 +585,44 @@
                     <div class="skill-header">
                         <div class="skill-icon database-icon"><i class="fas fa-database"></i></div>
                         <div>
-                            <h3>Databases & Cloud</h3>
+                            <h3>Databases &amp; Cloud</h3>
                             <span class="skill-level">Data Persistence</span>
                         </div>
                     </div>
                     <p class="skill-summary">Configuring robust relational and NoSQL databases, caching layers, containerized Docker setups, and CI/CD pipelines.</p>
                     <div class="skill-bars-list">
                         <div class="skill-meter" data-skill="MongoDB & Mongoose">
-                            <div class="meter-info"><span>MongoDB & Mongoose</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 90%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fas fa-leaf"></i> MongoDB &amp; Mongoose</span>
+                                <span class="meter-val" data-target="90">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="MongoDB and Mongoose proficiency 90%">
+                                <div class="meter-fill" style="--w: 90%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                         <div class="skill-meter" data-skill="PostgreSQL & SQL">
-                            <div class="meter-info"><span>PostgreSQL & SQL</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 85%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fas fa-database"></i> PostgreSQL &amp; SQL</span>
+                                <span class="meter-val" data-target="85">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="PostgreSQL and SQL proficiency 85%">
+                                <div class="meter-fill" style="--w: 85%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                         <div class="skill-meter" data-skill="Docker & AWS">
-                            <div class="meter-info"><span>Docker / Docker Compose</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 80%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fab fa-docker"></i> Docker / Containerization</span>
+                                <span class="meter-val" data-target="80">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Docker and Docker Compose proficiency 80%">
+                                <div class="meter-fill" style="--w: 80%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                     </div>
                     <div class="skill-chips">
-                        <span>MongoDB</span><span>PostgreSQL</span><span>Docker</span>
+                        <button type="button" class="skill-chip" data-tech="MongoDB">MongoDB</button>
+                        <button type="button" class="skill-chip" data-tech="PostgreSQL">PostgreSQL</button>
+                        <button type="button" class="skill-chip" data-tech="Docker">Docker</button>
                     </div>
                 </div>
 
@@ -546,23 +631,34 @@
                     <div class="skill-header">
                         <div class="skill-icon ai-icon"><i class="fas fa-brain"></i></div>
                         <div>
-                            <h3>AI & Intelligent Systems</h3>
+                            <h3>AI &amp; Intelligent Systems</h3>
                             <span class="skill-level">Smart Workflows</span>
                         </div>
                     </div>
                     <p class="skill-summary">Integrating LLM models, intelligent resume screening, predictive metrics, and Python ML pipelines into web apps.</p>
                     <div class="skill-bars-list">
                         <div class="skill-meter" data-skill="AI & Computer Vision Workflows">
-                            <div class="meter-info"><span>AI / Computer Vision Workflows</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 88%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fas fa-robot"></i> AI &amp; Vision Pipelines</span>
+                                <span class="meter-val" data-target="88">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="AI and Computer Vision Workflows proficiency 88%">
+                                <div class="meter-fill" style="--w: 88%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                         <div class="skill-meter" data-skill="Python ML Libraries">
-                            <div class="meter-info"><span>NumPy</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 82%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fab fa-python"></i> Python ML &amp; NumPy</span>
+                                <span class="meter-val" data-target="82">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100" aria-label="NumPy and Python ML Libraries proficiency 82%">
+                                <div class="meter-fill" style="--w: 82%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                     </div>
                     <div class="skill-chips">
-                        <span>NumPy</span><span>AI / Vision Concepts</span>
+                        <button type="button" class="skill-chip" data-tech="NumPy">NumPy</button>
+                        <button type="button" class="skill-chip" data-tech="AI">AI / Vision Concepts</button>
                     </div>
                 </div>
 
@@ -571,23 +667,34 @@
                     <div class="skill-header">
                         <div class="skill-icon tooling-icon"><i class="fas fa-toolbox"></i></div>
                         <div>
-                            <h3>Tools & Engineering Workflow</h3>
+                            <h3>Tools &amp; Engineering Workflow</h3>
                             <span class="skill-level">Productivity</span>
                         </div>
                     </div>
                     <p class="skill-summary">Version control discipline, API testing via Postman, unit testing, automated builds, and modern IDE workflows.</p>
                     <div class="skill-bars-list">
                         <div class="skill-meter" data-skill="Git & GitHub">
-                            <div class="meter-info"><span>Git, GitHub & Branch Strategies</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 94%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fab fa-git-alt"></i> Git, GitHub &amp; Branching</span>
+                                <span class="meter-val" data-target="94">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100" aria-label="Git, GitHub and Branch Strategies proficiency 94%">
+                                <div class="meter-fill" style="--w: 94%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                         <div class="skill-meter" data-skill="Postman & API Testing">
-                            <div class="meter-info"><span>API Testing & Debugging</span><span class="meter-val">Core</span></div>
-                            <div class="meter-track"><div class="meter-fill" style="--w: 91%"></div></div>
+                            <div class="meter-info">
+                                <span class="meter-name"><i class="fas fa-vial"></i> Postman &amp; API Testing</span>
+                                <span class="meter-val" data-target="91">0%</span>
+                            </div>
+                            <div class="meter-track" role="progressbar" aria-valuenow="91" aria-valuemin="0" aria-valuemax="100" aria-label="API Testing and Debugging proficiency 91%">
+                                <div class="meter-fill" style="--w: 91%"><span class="meter-glow"></span></div>
+                            </div>
                         </div>
                     </div>
                     <div class="skill-chips">
-                        <span>Git/GitHub</span><span>VS Code</span>
+                        <button type="button" class="skill-chip" data-tech="Git">Git/GitHub</button>
+                        <button type="button" class="skill-chip" data-tech="VS Code">VS Code</button>
                     </div>
                 </div>
             </div>
@@ -603,11 +710,11 @@
                 <p class="section-desc">Project names, technologies and capabilities are grounded in the repositories on my GitHub account.</p>
             </div>
             <div class="project-filters">
-                <button class="filter-btn active" data-filter="all"><i class="fas fa-layer-group"></i> All</button>
-                <button class="filter-btn" data-filter="dashboard"><i class="fas fa-chart-pie"></i> Dashboards</button>
-                <button class="filter-btn" data-filter="fullstack"><i class="fas fa-globe"></i> Full Stack</button>
-                <button class="filter-btn" data-filter="ai"><i class="fas fa-robot"></i> AI / Vision</button>
-                <button class="filter-btn" data-filter="frontend"><i class="fas fa-desktop"></i> Frontend</button>
+                <button class="filter-btn active" data-filter="all"><i class="fas fa-layer-group"></i> All <span class="filter-count">7</span></button>
+                <button class="filter-btn" data-filter="dashboard"><i class="fas fa-chart-pie"></i> Dashboards <span class="filter-count">2</span></button>
+                <button class="filter-btn" data-filter="fullstack"><i class="fas fa-globe"></i> Full Stack <span class="filter-count">3</span></button>
+                <button class="filter-btn" data-filter="ai"><i class="fas fa-robot"></i> AI / Vision <span class="filter-count">1</span></button>
+                <button class="filter-btn" data-filter="frontend"><i class="fas fa-desktop"></i> Frontend <span class="filter-count">1</span></button>
             </div>
             <div class="projects-grid" id="projectsGrid">
                 

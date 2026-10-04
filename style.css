@@ -1512,10 +1512,11 @@ section {
     align-items: center;
     justify-content: space-between;
     gap: 1.2rem;
-    margin-bottom: 2.8rem;
+    margin-bottom: 1.6rem;
 }
 
 .skills-search-box {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -1548,28 +1549,66 @@ section {
     outline: none;
 }
 
+.skills-search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.search-hint {
+    pointer-events: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.search-hint kbd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border);
+    color: var(--gray);
+}
+
+.skills-search-box.has-query .search-hint {
+    display: none;
+}
+
 .clear-search-btn {
     background: transparent;
     border: none;
     color: var(--gray);
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     display: none;
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.clear-search-btn:hover {
+    color: var(--light);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .skills-search-box.has-query .clear-search-btn {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .skills-category-tabs {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.55rem;
+    align-items: center;
 }
 
 .skill-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 0.55rem 1.15rem;
-    border-radius: 10px;
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--glass-border);
     color: var(--gray);
@@ -1577,24 +1616,108 @@ section {
     font-weight: 500;
     font-size: 0.86rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
 }
 
 .skill-tab-btn:hover {
     color: var(--light);
     background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
 }
 
 .skill-tab-btn.active {
     background: var(--gradient-1);
     color: #ffffff;
     border-color: transparent;
-    box-shadow: 0 4px 15px var(--primary-glow);
+    box-shadow: 0 4px 18px var(--primary-glow);
+    transform: translateY(-1px);
 }
 
+.skill-tab-btn .tab-count {
+    font-size: 0.72rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+}
+
+.skill-tab-btn.active .tab-count {
+    background: rgba(0, 0, 0, 0.25);
+    color: #ffffff;
+}
+
+/* Skills Status Bar */
+.skills-status-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.84rem;
+    color: var(--gray);
+    margin-bottom: 2.2rem;
+    padding: 0.4rem 0.9rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.skills-status-bar strong {
+    color: var(--light);
+}
+
+.status-indicator-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 8px var(--success);
+    display: inline-block;
+    animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Skills Empty State */
+.skills-empty-state {
+    background: var(--bg-card);
+    border: 1px dashed var(--glass-border);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 480px;
+    margin: 2rem auto;
+    backdrop-filter: blur(16px);
+    animation: fadeIn 0.3s ease;
+}
+
+.empty-icon {
+    font-size: 2.4rem;
+    color: var(--gray);
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.skills-empty-state h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.skills-empty-state p {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Skills Grid & Cards */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
     gap: 1.8rem;
 }
 
@@ -1604,20 +1727,51 @@ section {
     border-radius: 20px;
     padding: 1.8rem;
     backdrop-filter: blur(16px);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease, opacity 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    overflow: hidden;
 }
 
 .skill-card:hover {
     transform: translateY(-4px);
     border-color: var(--card-border-glow);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px var(--primary-glow);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.skill-card[data-cat="frontend"]:hover {
+    border-color: rgba(99, 102, 241, 0.45);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 25px rgba(99, 102, 241, 0.2);
+}
+
+.skill-card[data-cat="backend"]:hover {
+    border-color: rgba(16, 185, 129, 0.45);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 25px rgba(16, 185, 129, 0.2);
+}
+
+.skill-card[data-cat="dashboard"]:hover {
+    border-color: rgba(6, 182, 212, 0.45);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 25px rgba(6, 182, 212, 0.2);
+}
+
+.skill-card[data-cat="cloud"]:hover {
+    border-color: rgba(244, 63, 94, 0.45);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 25px rgba(244, 63, 94, 0.2);
 }
 
 .skill-card.filtered-out {
-    display: none;
+    display: none !important;
+}
+
+.skill-card.fade-in {
+    animation: skillFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes skillFadeIn {
+    from { opacity: 0; transform: translateY(14px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .skill-header {
@@ -1635,6 +1789,11 @@ section {
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
+    transition: transform 0.3s ease;
+}
+
+.skill-card:hover .skill-icon {
+    transform: scale(1.08) rotate(3deg);
 }
 
 .frontend-icon { background: rgba(99, 102, 241, 0.15); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.3); }
@@ -1665,62 +1824,183 @@ section {
     margin-bottom: 1.4rem;
 }
 
+/* Skill Progress Loaders & Meters */
 .skill-bars-list {
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 1rem;
     margin-bottom: 1.5rem;
+}
+
+.skill-meter {
+    transition: transform 0.2s ease;
+}
+
+.skill-meter:hover {
+    transform: translateX(2px);
 }
 
 .skill-meter .meter-info {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 0.84rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.45rem;
 }
 
-.meter-info span:first-child {
+.meter-name {
     font-weight: 500;
     color: var(--light);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.meter-name i {
+    font-size: 0.95rem;
+    opacity: 0.85;
 }
 
 .meter-val {
     font-family: 'JetBrains Mono', monospace;
     color: var(--accent);
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 0.86rem;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
 }
 
 .meter-track {
     width: 100%;
-    height: 7px;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 4px;
+    height: 9px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
     overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .meter-fill {
     width: 0%;
     height: 100%;
+    border-radius: 999px;
+    position: relative;
     background: var(--gradient-1);
-    border-radius: 4px;
-    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: width;
 }
 
+/* Category-specific meter gradient styling */
+.skill-card[data-cat="frontend"] .meter-fill {
+    background: linear-gradient(90deg, #6366f1, #38bdf8);
+}
+
+.skill-card[data-cat="backend"] .meter-fill {
+    background: linear-gradient(90deg, #10b981, #14b8a6);
+}
+
+.skill-card[data-cat="dashboard"] .meter-fill {
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
+}
+
+.skill-card[data-cat="cloud"] .meter-fill {
+    background: linear-gradient(90deg, #f43f5e, #a855f7);
+}
+
+.meter-fill.loaded {
+    width: var(--w, 0%);
+}
+
+/* Dynamic animated shimmer wave through the loader */
+.meter-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: meterShimmer 2.2s infinite linear;
+    border-radius: 999px;
+    pointer-events: none;
+}
+
+@keyframes meterShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Glowing luminous thumb at the progress edge */
+.meter-glow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px 2px #ffffff, 0 0 14px 4px var(--primary-glow);
+    opacity: 0.95;
+}
+
+/* Interactive Chips */
 .skill-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 0.45rem;
     border-top: 1px solid var(--glass-border);
-    padding-top: 1rem;
+    padding-top: 1.1rem;
 }
 
-.skill-chips span {
+.skill-chip {
     font-size: 0.74rem;
     font-family: 'JetBrains Mono', monospace;
-    padding: 0.25rem 0.6rem;
+    padding: 0.3rem 0.7rem;
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
     color: var(--gray);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+}
+
+.skill-chip:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--light);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.skill-chip:active {
+    transform: scale(0.96);
+}
+
+.skill-chip.active-chip {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+    box-shadow: 0 0 12px var(--primary-glow);
+}
+
+/* Filter counts on buttons */
+.filter-count {
+    font-size: 0.72rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    margin-left: 0.25rem;
+}
+
+.filter-btn.active .filter-count {
+    background: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
 }
 
 /* --------------------------------------------------
